@@ -1,9 +1,6 @@
-<center>
 
 ![MadWorld](/public/images/madworld-logo.png)
-NSFW Sega MadWorld Audio Player
-
-</center>
+<p align="center">NSFW Sega MadWorld Audio Player</p>
 
 <hr/>
 
