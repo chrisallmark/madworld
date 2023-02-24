@@ -9,7 +9,7 @@
 
 This not-safe-for-work application is a tribute to one of my favourite games - [Madworld](https://www.platinumgames.com/games/madworld) by [Platinum Games](https://www.platinumgames.com/) where you get to experience a unique blend of brutality, humor and madness in a graphic novel-style world that’s black and white and blood-red all over.
 
-In a blatant act of copyright infringement, this application plays the MadWorld OST in the background and allows you to trigger the hilarious in-game commentary from Howard "Buckshot" Homes (Greg Proops) & Kreese Kreely (John DiMaggio) while displaying a selection of gory screen shots in the background.
+In a blatant act of copyright infringement, this application plays randomised tracks from the MadWorld OST and lets you to trigger samples of the hilarious in-game commentary from Howard "Buckshot" Homes (Greg Proops) & Kreese Kreely (John DiMaggio) while displaying a selection of gory screen shots in the background.
 
 ## Install Package Dependencies
 
