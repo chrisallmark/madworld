@@ -20,7 +20,7 @@ const Background = ({ samples, tracks }: PlayerProps) => {
         <Grid.Column textAlign="right" width={4}>
           <Button color="black" icon>
             <Icon
-              inverte
+              inverted
               name="random"
               onClick={() =>
                 setSample(samples[Math.floor(Math.random() * samples.length)])

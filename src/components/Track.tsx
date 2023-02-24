@@ -1,5 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { AudioContext } from "./Audio";
+
+let audioContext: AudioContext;
+let gainNode: GainNode;
+let sourceNode: MediaElementAudioSourceNode;
 
 interface TrackProps {
   tracks: Array<string>;
@@ -24,8 +28,15 @@ const Track = ({ tracks }: TrackProps) => {
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
     if (audio) {
-      audio.volume = volume;
+      audioContext = audioContext || new window.AudioContext();
+      gainNode = gainNode || audioContext.createGain();
+      gainNode.connect(audioContext.destination);
+      try {
+        sourceNode = sourceNode || audioContext.createMediaElementSource(audio);
+        sourceNode.connect(gainNode);
+      } catch {}
     }
+    gainNode.gain.value = volume;
   }, [volume]);
   const handleEnded = () => {
     nextTrack();
