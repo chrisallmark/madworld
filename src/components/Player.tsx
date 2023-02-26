@@ -36,7 +36,7 @@ const Background = ({ samples, tracks }: PlayerProps) => {
               onChange={(_, d) => setSample(d.value as string)}
               options={samples.map((file) => ({
                 key: file,
-                text: file.replace(".mp3", ""),
+                text: file.slice(file.lastIndexOf("/") + 1).replace(".mp3", ""),
                 value: file,
               }))}
               placeholder="Select Sound"

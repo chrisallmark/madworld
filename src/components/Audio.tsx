@@ -1,14 +1,8 @@
-import {
-  createContext,
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  useState,
-} from "react";
+import { createContext, useMemo, useState } from "react";
 
 interface AudioContextProps {
   volume: number;
-  setVolume: Dispatch<SetStateAction<number>>;
+  setVolume: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const AudioContext = createContext<AudioContextProps>({
@@ -16,12 +10,11 @@ export const AudioContext = createContext<AudioContextProps>({
   setVolume: () => {},
 });
 
-const Audio = ({ children }: PropsWithChildren) => {
+const Audio = ({ children }: React.PropsWithChildren) => {
   const [volume, setVolume] = useState(1.0);
+  const value = useMemo(() => ({ volume, setVolume }), [volume, setVolume]);
   return (
-    <AudioContext.Provider value={{ volume, setVolume }}>
-      {children}
-    </AudioContext.Provider>
+    <AudioContext.Provider value={value}>{children}</AudioContext.Provider>
   );
 };
 

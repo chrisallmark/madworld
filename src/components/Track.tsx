@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AudioContext } from "./Audio";
 
 let audioContext: AudioContext;
@@ -42,8 +42,8 @@ const Track = ({ tracks }: TrackProps) => {
     nextTrack();
   };
   return (
-    <audio id="track" onEnded={handleEnded}>
-      <source src={encodeURI(`/tracks/${tracks[track]}`)} type="audio/mpeg" />
+    <audio id="track" crossOrigin="anonymous" onEnded={handleEnded}>
+      <source src={encodeURI(tracks[track])} type="audio/mpeg" />
     </audio>
   );
 };
