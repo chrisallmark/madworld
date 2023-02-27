@@ -40,7 +40,6 @@ const Background = ({ samples, tracks }: PlayerProps) => {
                 value: file,
               }))}
               placeholder="Select Sound"
-              search
               selection
               value={sample}
             />

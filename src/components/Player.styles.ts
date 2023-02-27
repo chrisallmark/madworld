@@ -3,19 +3,21 @@ import styled from "styled-components";
 export const Dropdown = styled.div`
   .ui {
     .menu {
-      background-color: black;
-      > .message:not(.ui) {
-        color: #890302;
-      }
-    }
-    &.search {
       background-color: #272a2a;
-      input {
-        color: white;
-      }
+      top: 37px;
     }
-    &.selection.dropdown .item {
-      border-top: none;
+    &.selection {
+      &.dropdown {
+        background-color: #272a2a;
+        .item {
+          border-top: none;
+        }
+      }
+      &.dropdown:focus,
+      &.active.dropdown,
+      &.active.dropdown .menu {
+        border-color: #c41f1f;
+      }
     }
     .text {
       color: white;
@@ -24,6 +26,6 @@ export const Dropdown = styled.div`
 `;
 
 export const MadWorldLogo = styled.img`
-  max-width: 1366;
+  max-width: 1366px;
   width: 100%;
 `;
