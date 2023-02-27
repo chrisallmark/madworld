@@ -19,6 +19,7 @@ export const Dropdown = styled.div`
         border-color: #c41f1f;
       }
     }
+    .icon,
     .text {
       color: white;
     }
