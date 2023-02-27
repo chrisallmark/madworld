@@ -1,3 +1,3 @@
 export interface BackgroundProps {
-  background: number;
+  background: string;
 }
