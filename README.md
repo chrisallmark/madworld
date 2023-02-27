@@ -1,5 +1,5 @@
-
 ![MadWorld](/public/images/madworld-logo.png)
+
 <p align="center">NSFW Sega MadWorld Audio Player</p>
 
 <hr/>
@@ -28,4 +28,39 @@ npm run dev
 ```
 npm run build
 npm start
+```
+
+### AWS Configuration
+
+In development mode the application uses local audio resources, however in production mode audio resources are retrieved from the AWS Simple Storage Service (S3). To configure this, declare the following variables in your environment:
+
+```
+AWS_BUCKET
+AWS_REGION
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+```
+
+Your resources should be stored with `madworld/samples` and `madworld/tracks` prefixes and you'll need to configure CORS to enable cross-origin GET requests as follows:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "https://*-chrisallmark.vercel.app"
+        ],
+        "ExposeHeaders": [
+            "Content-Length",
+            "Content-Typeid",
+            "ETag"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
 ```
