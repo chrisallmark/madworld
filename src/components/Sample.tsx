@@ -6,10 +6,7 @@ import {
   useImperativeHandle,
 } from "react";
 import { AudioContext } from "./Audio";
-
-interface SampleProps {
-  sample: string;
-}
+import { SampleProps } from "./Sample.types";
 
 // eslint-disable-next-line react/display-name
 const Sample = forwardRef(({ sample }: SampleProps, ref) => {
@@ -17,7 +14,7 @@ const Sample = forwardRef(({ sample }: SampleProps, ref) => {
   const { setVolume } = useContext(AudioContext);
   const play = useCallback(() => {
     const audio = document.getElementById("sample") as HTMLAudioElement;
-    setVolume(0.4);
+    setVolume(0.33);
     setTimeout(() => {
       audio.load();
       audio.play();

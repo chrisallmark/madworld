@@ -6,6 +6,9 @@ import { PlayerProps } from "./Player.types";
 
 const Background = ({ samples, tracks }: PlayerProps) => {
   const [sample, setSample] = useState("");
+  const [track, setTrack] = useState(
+    tracks[Math.floor(Math.random() * tracks.length)]
+  );
   const ref = useRef<{
     play: () => void;
   }>();
@@ -13,48 +16,89 @@ const Background = ({ samples, tracks }: PlayerProps) => {
     <Container>
       <Audio>
         <Sample ref={ref} sample={sample} />
-        <Track tracks={tracks} />
+        <Track
+          onEnded={() => {
+            let shuffle = track;
+            while (shuffle === track) {
+              shuffle = tracks[Math.floor(Math.random() * tracks.length)];
+            }
+            setTrack(shuffle);
+          }}
+          track={track}
+        />
       </Audio>
       <Styled.MadWorldLogo alt="Madword" src="/images/madworld-logo.png" />
-      <Grid verticalAlign="middle" columns={3}>
-        <Grid.Column textAlign="right" width={4}>
-          <Button color="black" icon>
-            <Icon
-              inverted
-              name="random"
-              onClick={() =>
-                setSample(samples[Math.floor(Math.random() * samples.length)])
-              }
-              size="large"
-            />
-          </Button>
-        </Grid.Column>
-        <Grid.Column textAlign="center" width={8}>
+      <Grid columns={4} stackable>
+        <Grid.Column width={3} />
+        <Grid.Column textAlign="right" width={3}>
           <Styled.Dropdown>
             <Dropdown
+              button
+              className="black icon"
+              icon="music"
+              floating
               fluid
-              onChange={(_, d) => setSample(d.value as string)}
-              options={samples.map((file) => ({
-                key: file,
-                text: file.slice(file.lastIndexOf("/") + 1).replace(".mp3", ""),
-                value: file,
+              labeled
+              onChange={(_, d) => setTrack(d.value as string)}
+              options={tracks.map((track) => ({
+                key: track,
+                text: track
+                  .slice(track.lastIndexOf("/") + 1)
+                  .replace(".m4a", ""),
+                value: track,
               }))}
-              placeholder="Select Sound"
-              selection
+              search
+              placeholder="Select Track"
+              value={track}
+            />
+          </Styled.Dropdown>
+        </Grid.Column>
+        <Grid.Column textAlign="center" width={6}>
+          <Styled.Dropdown>
+            <Dropdown
+              button
+              className="black icon"
+              icon="microphone"
+              floating
+              fluid
+              labeled
+              onChange={(_, d) => setSample(d.value as string)}
+              options={samples.map((sample) => ({
+                key: sample,
+                text: sample
+                  .slice(sample.lastIndexOf("/") + 1)
+                  .replace(".mp3", ""),
+                value: sample,
+              }))}
+              placeholder="Select Sample..."
+              search
               value={sample}
             />
           </Styled.Dropdown>
         </Grid.Column>
-        <Grid.Column textAlign="left" width={4}>
-          <Button color="black" disabled={sample === ""} icon>
-            <Icon
-              inverted
-              name="repeat"
-              onClick={() => ref.current && ref.current.play()}
-              size="large"
-            />
-          </Button>
+        <Grid.Column textAlign="left" width={1}>
+          <Button.Group fluid>
+            <Button color="black" icon>
+              <Icon
+                inverted
+                name="random"
+                onClick={() =>
+                  setSample(samples[Math.floor(Math.random() * samples.length)])
+                }
+                size="large"
+              />
+            </Button>
+            <Button color="black" disabled={sample === ""} icon>
+              <Icon
+                inverted
+                name="repeat"
+                onClick={() => ref.current && ref.current.play()}
+                size="large"
+              />
+            </Button>
+          </Button.Group>
         </Grid.Column>
+        <Grid.Column width={3} />
       </Grid>
     </Container>
   );

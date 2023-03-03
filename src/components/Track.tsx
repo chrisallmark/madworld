@@ -1,23 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AudioContext } from "./Audio";
+import { TrackProps } from "./Track.types";
 
 let audioContext: AudioContext;
 let gainNode: GainNode;
 let sourceNode: MediaElementAudioSourceNode;
 
-interface TrackProps {
-  tracks: Array<string>;
-}
-
-const Track = ({ tracks }: TrackProps) => {
-  tracks.sort((_, __) => 0.5 - Math.random());
-  const [track, setTrack] = useState(0);
+const Track = ({ onEnded, track }: TrackProps) => {
   const { volume } = useContext(AudioContext);
-  const nextTrack = () => {
-    if (track < tracks.length) {
-      setTrack(track + 1);
-    }
-  };
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
     if (audio) {
@@ -38,12 +28,9 @@ const Track = ({ tracks }: TrackProps) => {
     }
     gainNode.gain.value = volume;
   }, [volume]);
-  const handleEnded = () => {
-    nextTrack();
-  };
   return (
-    <audio id="track" crossOrigin="anonymous" onEnded={handleEnded}>
-      <source src={encodeURI(tracks[track])} type="audio/mpeg" />
+    <audio id="track" crossOrigin="anonymous" onEnded={onEnded}>
+      <source src={encodeURI(track)} type="audio/mpeg" />
     </audio>
   );
 };
