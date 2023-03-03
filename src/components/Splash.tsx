@@ -9,7 +9,7 @@ const Splash = ({ onClick }: SplashProps) => {
         <Image
           alt="Madworld Splash"
           fill
-          priority
+          priority={true}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src="/images/madworld-splash.png"
           style={{ objectFit: "contain" }}
