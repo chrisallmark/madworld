@@ -29,8 +29,8 @@ const Background = ({ samples, tracks }: PlayerProps) => {
       </Audio>
       <Styled.MadWorldLogo alt="Madword" src="/images/madworld-logo.png" />
       <Grid columns={4} stackable>
-        <Grid.Column width={3} />
-        <Grid.Column textAlign="right" width={3}>
+        <Grid.Column width={2} />
+        <Grid.Column textAlign="right" width={5}>
           <Styled.Dropdown>
             <Dropdown
               button
@@ -98,7 +98,7 @@ const Background = ({ samples, tracks }: PlayerProps) => {
             </Button>
           </Button.Group>
         </Grid.Column>
-        <Grid.Column width={3} />
+        <Grid.Column width={2} />
       </Grid>
     </Container>
   );
