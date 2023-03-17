@@ -19,7 +19,7 @@ const Background = ({ children }: React.PropsWithChildren) => {
               animationDelay: `${Math.random() * 5}s`,
               animationDuration: `${0.2 + Math.random() * 0.3}s`,
               left: `${Math.floor(
-                Math.random() * (window.innerWidth * 1.5)
+                Math.random() * (window.innerWidth * 1.2)
               )}px`,
             }}
           />
