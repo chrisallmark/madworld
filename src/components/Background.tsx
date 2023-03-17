@@ -12,13 +12,15 @@ const Background = ({ children }: React.PropsWithChildren) => {
   useEffect(() => {
     setRain(
       <>
-        {Array.from({ length: 20 }, (_, index) => index).map((key) => (
+        {Array.from({ length: 100 }, (_, index) => index).map((key) => (
           <Styled.Rain
             key={key}
             style={{
-              animationDelay: Math.random() * 5 + "s",
-              animationDuration: 0.2 + Math.random() * 0.3 + "s",
-              left: Math.floor(Math.random() * window.innerWidth) + "px",
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${0.2 + Math.random() * 0.3}s`,
+              left: `${Math.floor(
+                Math.random() * (window.innerWidth * 1.5)
+              )}px`,
             }}
           />
         ))}

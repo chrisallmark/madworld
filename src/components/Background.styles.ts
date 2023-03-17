@@ -16,19 +16,17 @@ export const Rain = styled.hr`
   animation-iteration-count: infinite;
   animation-name: rain;
   animation-timing-function: linear;
-  border-color: transparent;
-  border-right-color: white;
-  border-right-width: 100px;
   bottom: 100%;
   position: absolute;
-  transform-origin: 100% 50%;
   width: 50px;
   @keyframes rain {
     from {
-      transform: rotate(105deg) translateX(0);
+      transform: rotate(100deg) translateX(0);
+      transform-origin: top left;
     }
     to {
-      transform: rotate(105deg) translateX(calc(100vh + 20px));
+      transform: rotate(100deg) translateX(calc(100vh + 20px));
+      transform-origin: top left;
     }
   }
 `;
