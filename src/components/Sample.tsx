@@ -32,7 +32,7 @@ const Sample = forwardRef(({ sample }: SampleProps, ref) => {
     <>
       {sample !== "" && (
         <>
-          <audio id="sample" crossOrigin="anonymous" onEnded={handleEnded}>
+          <audio crossOrigin="anonymous" id="sample" onEnded={handleEnded}>
             <source src={encodeURI(sample)} type="audio/mpeg" />
           </audio>
         </>

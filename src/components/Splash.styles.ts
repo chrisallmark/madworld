@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const ESRB = styled.img`
@@ -15,7 +16,7 @@ export const ESRB = styled.img`
   }
 `;
 
-export const MadworldSplash = styled.div`
+export const MadworldSplash = styled(Link)`
   height: 100%;
   margin: 1em 0;
   max-height: 500px;

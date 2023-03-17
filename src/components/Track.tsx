@@ -29,7 +29,7 @@ const Track = ({ onEnded, track }: TrackProps) => {
     gainNode.gain.value = volume;
   }, [volume]);
   return (
-    <audio id="track" crossOrigin="anonymous" onEnded={onEnded}>
+    <audio autoPlay crossOrigin="anonymous" id="track" onEnded={onEnded}>
       <source src={encodeURI(track)} type="audio/mpeg" />
     </audio>
   );
