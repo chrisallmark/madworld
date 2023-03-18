@@ -1,16 +1,11 @@
 import * as Styled from "./Splash.styles";
 import Image from "next/image";
-import { useState } from "react";
-import { Dimmer, Loader } from "semantic-ui-react";
+import { SplashProps } from "./Spash.types";
 
-const Splash = () => {
-  const [loading, setLoading] = useState(false);
+const Splash = ({ onClick }: SplashProps) => {
   return (
     <>
-      <Dimmer active={loading}>
-        <Loader />
-      </Dimmer>
-      <Styled.MadworldSplash href="/madworld" onClick={() => setLoading(true)}>
+      <Styled.MadworldSplash href="/madworld" onClick={onClick}>
         <Image
           alt="Madworld Splash"
           fill

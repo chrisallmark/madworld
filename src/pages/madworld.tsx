@@ -1,8 +1,9 @@
-import { Background, Player } from "@/components";
+import { Background, Player, Splash } from "@/components";
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 import { readdirSync } from "fs";
 import { GetServerSideProps } from "next";
 import path from "path";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps = async (_) => {
   let samples: Array<string> = [];
@@ -61,9 +62,11 @@ interface MadWorldProps {
 }
 
 const MadWorld = ({ samples, tracks }: MadWorldProps) => {
+  const [interaction, setInteraction] = useState(false);
   return (
     <Background>
-      <Player samples={samples} tracks={tracks} />
+      {interaction && <Player samples={samples} tracks={tracks} />}
+      {!interaction && <Splash onClick={() => setInteraction(true)} />}
     </Background>
   );
 };
