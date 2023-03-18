@@ -1,4 +1,4 @@
-import { Background, Player, Splash } from "@/components";
+import { Background, Metadata, Player, Splash } from "@/components";
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 import { readdirSync } from "fs";
 import { GetServerSideProps } from "next";
@@ -64,10 +64,13 @@ interface MadWorldProps {
 const MadWorld = ({ samples, tracks }: MadWorldProps) => {
   const [interaction, setInteraction] = useState(false);
   return (
-    <Background>
-      {interaction && <Player samples={samples} tracks={tracks} />}
-      {!interaction && <Splash onClick={() => setInteraction(true)} />}
-    </Background>
+    <>
+      <Metadata path="/madworld" />
+      <Background>
+        {interaction && <Player samples={samples} tracks={tracks} />}
+        {!interaction && <Splash onClick={() => setInteraction(true)} />}
+      </Background>
+    </>
   );
 };
 
