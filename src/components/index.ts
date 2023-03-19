@@ -1,9 +1,9 @@
 import Audio from "./Audio";
 import Background from "./Background";
-import Metadata from "./Metadata";
+import Error404 from "./Error404";
 import Player from "./Player";
 import Sample from "./Sample";
 import Splash from "./Splash";
 import Track from "./Track";
 
-export { Audio, Background, Metadata, Player, Sample, Splash, Track };
+export { Audio, Background, Error404, Player, Sample, Splash, Track };
