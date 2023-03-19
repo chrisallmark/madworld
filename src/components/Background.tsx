@@ -12,7 +12,10 @@ const Background = ({ children }: React.PropsWithChildren) => {
   useEffect(() => {
     setRain(
       <>
-        {Array.from({ length: 20 }, (_, index) => index).map((key) => (
+        {Array.from(
+          { length: Math.floor(window.innerWidth / 20) },
+          (_, index) => index
+        ).map((key) => (
           <Styled.Rain
             key={key}
             style={{
