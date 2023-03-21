@@ -19,5 +19,5 @@ export const Dropdown = styled.div`
 
 export const MadWorldLogo = styled.img`
   max-width: 1366px;
-  width: 10 0%;
+  width: 100%;
 `;
