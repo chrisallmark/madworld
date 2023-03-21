@@ -78,23 +78,22 @@ const Background = ({ samples, tracks }: PlayerProps) => {
         </Grid.Column>
         <Grid.Column textAlign="left" width={1}>
           <Button.Group fluid>
-            <Button color="black" icon>
-              <Icon
-                inverted
-                name="random"
-                onClick={() =>
-                  setSample(samples[Math.floor(Math.random() * samples.length)])
-                }
-                size="large"
-              />
+            <Button
+              color="black"
+              icon
+              onClick={() =>
+                setSample(samples[Math.floor(Math.random() * samples.length)])
+              }
+            >
+              <Icon inverted name="random" size="large" />
             </Button>
-            <Button color="black" disabled={sample === ""} icon>
-              <Icon
-                inverted
-                name="repeat"
-                onClick={() => ref.current && ref.current.play()}
-                size="large"
-              />
+            <Button
+              color="black"
+              disabled={sample === ""}
+              icon
+              onClick={() => ref.current && ref.current.play()}
+            >
+              <Icon inverted name="repeat" size="large" />
             </Button>
           </Button.Group>
         </Grid.Column>
