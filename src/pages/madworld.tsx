@@ -66,8 +66,11 @@ const MadWorld = ({ samples, tracks }: MadWorldProps) => {
   return (
     <>
       <Background>
-        {interaction && <Player samples={samples} tracks={tracks} />}
-        {!interaction && <Splash onClick={() => setInteraction(true)} />}
+        {interaction ? (
+          <Player samples={samples} tracks={tracks} />
+        ) : (
+          <Splash onClick={() => setInteraction(true)} />
+        )}
       </Background>
     </>
   );
