@@ -8,8 +8,10 @@ let sourceNode: MediaElementAudioSourceNode;
 
 const Track = ({ onEnded, track }: TrackProps) => {
   const { volume } = useContext(AudioContext);
+  console.log("VOLUME:", volume);
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
+    console.log("AUDIO (TRACK):", audio);
     if (audio) {
       audio.load();
       audio.play();
@@ -17,6 +19,7 @@ const Track = ({ onEnded, track }: TrackProps) => {
   }, [track]);
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
+    console.log("AUDIO (VOLUME):", audio);
     if (audio) {
       audioContext = audioContext || new window.AudioContext();
       gainNode = gainNode || audioContext.createGain();
@@ -24,8 +27,10 @@ const Track = ({ onEnded, track }: TrackProps) => {
       try {
         sourceNode = sourceNode || audioContext.createMediaElementSource(audio);
         sourceNode.connect(gainNode);
-      } catch {
+      } catch (error) {
         // do nothing
+        console.error(error);
+        console.log(error);
       }
     }
     gainNode.gain.value = volume;
