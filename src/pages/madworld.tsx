@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 import path from "path";
 import { useState } from "react";
 
-export const getServerSideProps: GetServerSideProps = async (_) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   let samples: Array<string> = [];
   let tracks: Array<string> = [];
   if (process.env.NODE_ENV === "development") {

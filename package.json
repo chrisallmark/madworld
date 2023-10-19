@@ -9,21 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.429.0",
+    "@aws-sdk/client-s3": "^3.431.0",
     "next": "13.5.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
-    "styled-components": "^5.3.9"
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.31",
-    "@types/react-dom": "18.0.11",
-    "@types/styled-components": "^5.1.26",
-    "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
-    "typescript": "5.0.3"
+    "@types/node": "20.8.7",
+    "@types/react": "18.2.29",
+    "@types/react-dom": "18.2.14",
+    "@types/styled-components": "^5.1.29",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "8.51.0",
+    "eslint-config-next": "^13.5.5",
+    "eslint-config-prettier": "^9.0.0",
+    "typescript": "5.2.2"
   }
 }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BackgroundProps } from "./Background.types";
 
 export const Background = styled.div<BackgroundProps>`
-  background-image: url("/images/madworld-${(props) => props.background}.jpg");
+  background-image: url("/images/madworld-${(props) => props.$background}.jpg");
   background-position: center;
   background-size: cover;
   height: 100%;

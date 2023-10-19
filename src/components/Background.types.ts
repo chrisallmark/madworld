@@ -1,3 +1,3 @@
 export interface BackgroundProps {
-  background: string;
+  $background: string;
 }

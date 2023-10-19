@@ -31,7 +31,7 @@ const Background = ({ children }: React.PropsWithChildren) => {
     );
   }, []);
   return (
-    <Styled.Background background={String(background).padStart(2, "0")}>
+    <Styled.Background $background={String(background).padStart(2, "0")}>
       {rain}
       <Styled.Scanlines>{children}</Styled.Scanlines>
     </Styled.Background>

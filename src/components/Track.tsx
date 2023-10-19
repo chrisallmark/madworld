@@ -24,12 +24,14 @@ const Track = ({ onEnded, track }: TrackProps) => {
       try {
         sourceNode = sourceNode || audioContext.createMediaElementSource(audio);
         sourceNode.connect(gainNode);
-      } catch {}
+      } catch {
+        // do nothing
+      }
     }
     gainNode.gain.value = volume;
   }, [volume]);
   return (
-    <audio autoPlay crossOrigin="anonymous" id="track" onEnded={onEnded}>
+    <audio crossOrigin="anonymous" id="track" onEnded={onEnded}>
       <source src={encodeURI(track)} type="audio/mpeg" />
     </audio>
   );
