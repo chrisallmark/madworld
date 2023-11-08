@@ -9,20 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.441.0",
+    "@aws-sdk/client-s3": "^3.445.0",
     "next": "14.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "sharp": "^0.32.6",
-    "styled-components": "^6.1.0"
+    "styled-components": "^6.1.1"
   },
   "devDependencies": {
-    "@types/node": "20.8.10",
-    "@types/react": "18.2.36",
-    "@types/react-dom": "18.2.14",
-    "@types/styled-components": "^5.1.29",
+    "@types/node": "20.9.0",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
+    "@types/styled-components": "^5.1.30",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "8.53.0",
