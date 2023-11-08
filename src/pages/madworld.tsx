@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const sampleObjects = await s3Client.send(
       new ListObjectsCommand({
         Bucket: process.env.AWS_BUCKET,
-        Prefix: "madworld/samples",
+        Prefix: "samples",
       })
     );
     if (sampleObjects.Contents) {
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const trackObjects = await s3Client.send(
       new ListObjectsCommand({
         Bucket: process.env.AWS_BUCKET,
-        Prefix: "madworld/tracks",
+        Prefix: "tracks",
       })
     );
     if (trackObjects.Contents) {
