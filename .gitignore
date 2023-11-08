@@ -35,5 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+#terraform
+.terraform
+*.tfstate*
+*.tfvars
+
 # vscode
 .vscode
