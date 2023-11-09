@@ -39,7 +39,7 @@ resource "aws_s3_bucket_cors_configuration" "madworld" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET"]
-    allowed_origins = ["https://mad-world.vercel.app"]
+    allowed_origins = var.allowed_origins
     expose_headers = [
       "Content-Length",
       "Content-Typeid",
