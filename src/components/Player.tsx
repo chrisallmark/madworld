@@ -44,7 +44,7 @@ const Background = ({ samples, tracks }: PlayerProps) => {
                 key: track,
                 text: track
                   .slice(track.lastIndexOf("/") + 1)
-                  .replace(".m4a", ""),
+                  .replace(".mp3", ""),
                 value: track,
               }))}
               search
