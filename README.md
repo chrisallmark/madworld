@@ -34,9 +34,7 @@ npm start
 
 In development mode the application uses local audio resources, however in production mode audio resources are retrieved from the AWS Simple Storage Service (S3).
 
-###
-
-To deploy the audio resources to AWS via terraform create a `terraform.tfvars` file inside the `terraform` folder providing a list of allowed origins for CORS and unique bucket name:
+To deploy the audio resources to AWS with [terraform](https://developer.hashicorp.com/terraform) create a `terraform.tfvars` file in the `terraform` folder providing a list of allowed origins for CORS and a unique bucket name:
 
 ```
 allowed_origins = [ "*" ]
@@ -50,7 +48,7 @@ terraform init
 terraform apply
 ```
 
-Findally configure your application by declaring the following variables in your deployment environment:
+Finally, configure your application by declaring the following variables in your deployment environment:
 
 ```
 AWS_ACCESS_KEY_ID = "..."
