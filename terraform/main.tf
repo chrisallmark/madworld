@@ -50,28 +50,28 @@ resource "aws_s3_bucket_cors_configuration" "madworld" {
 }
 
 resource "aws_s3_object" "madworld-extras" {
-  for_each = fileset("../public/extras/", "**")
-  acl      = "public-read"
-  bucket   = var.bucket
-  etag     = filemd5("../public/extras/${each.value}")
-  key      = "extras/${each.value}"
-  source   = "../public/extras/${each.value}"
+  for_each    = fileset("../public/extras/", "**")
+  acl         = "public-read"
+  bucket      = var.bucket
+  key         = "extras/${each.value}"
+  source      = "../public/extras/${each.value}"
+  source_hash = filemd5("../public/extras/${each.value}")
 }
 
 resource "aws_s3_object" "madworld-samples" {
-  for_each = fileset("../public/samples/", "**")
-  acl      = "public-read"
-  bucket   = var.bucket
-  etag     = filemd5("../public/samples/${each.value}")
-  key      = "samples/${each.value}"
-  source   = "../public/samples/${each.value}"
+  for_each    = fileset("../public/samples/", "**")
+  acl         = "public-read"
+  bucket      = var.bucket
+  key         = "samples/${each.value}"
+  source      = "../public/samples/${each.value}"
+  source_hash = filemd5("../public/samples/${each.value}")
 }
 
 resource "aws_s3_object" "madworld-tracks" {
-  for_each = fileset("../public/tracks/", "**")
-  acl      = "public-read"
-  bucket   = var.bucket
-  etag     = filemd5("../public/tracks/${each.value}")
-  key      = "tracks/${each.value}"
-  source   = "../public/tracks/${each.value}"
+  for_each    = fileset("../public/tracks/", "**")
+  acl         = "public-read"
+  bucket      = var.bucket
+  key         = "tracks/${each.value}"
+  source      = "../public/tracks/${each.value}"
+  source_hash = filemd5("../public/tracks/${each.value}")
 }
