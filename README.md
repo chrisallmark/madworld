@@ -32,35 +32,29 @@ npm start
 
 ### AWS Configuration
 
-In development mode the application uses local audio resources, however in production mode audio resources are retrieved from the AWS Simple Storage Service (S3). To configure this, declare the following variables in your environment:
+In development mode the application uses local audio resources, however in production mode audio resources are retrieved from the AWS Simple Storage Service (S3).
+
+###
+
+To deploy the audio resources to AWS via terraform create a `terraform.tfvars` file inside the `terraform` folder providing a list of allowed origins for CORS and unique bucket name:
 
 ```
-AWS_BUCKET
-AWS_REGION
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
+allowed_origins = [ "*" ]
+bucket = "..."
 ```
 
-Your resources should be stored with `madworld/samples` and `madworld/tracks` prefixes and you'll need to configure CORS to enable cross-origin GET requests as follows:
+Now from with the terraform directory provision your infrastructure with:
 
 ```
-[
-    {
-        "AllowedHeaders": [
-            "*"
-        ],
-        "AllowedMethods": [
-            "GET"
-        ],
-        "AllowedOrigins": [
-            "https://*-chrisallmark.vercel.app"
-        ],
-        "ExposeHeaders": [
-            "Content-Length",
-            "Content-Typeid",
-            "ETag"
-        ],
-        "MaxAgeSeconds": 3000
-    }
-]
+terraform init
+terraform apply
+```
+
+Findally configure your application by declaring the following variables in your deployment environment:
+
+```
+AWS_ACCESS_KEY_ID = "..."
+AWS_BUCKET = "..."
+AWS_REGION = "..."
+AWS_SECRET_ACCESS_KEY = "..."
 ```
