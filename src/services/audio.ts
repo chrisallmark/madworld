@@ -1,28 +1,22 @@
-import { Background, Player, Splash } from "@/components";
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 import { readdirSync } from "fs";
-import { GetServerSideProps } from "next";
 import path from "path";
-import { useState } from "react";
 
-export const getServerSideProps: GetServerSideProps = async () => {
+const s3Client = new S3Client({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+  },
+  region: process.env.AWS_REGION,
+});
+
+export const getSamples = async () => {
   let samples: Array<string> = [];
-  let tracks: Array<string> = [];
   if (process.env.NODE_ENV === "development") {
     samples = readdirSync(path.join(process.cwd(), "public/samples")).map(
       (sample) => `samples/${sample}`
     );
-    tracks = readdirSync(path.join(process.cwd(), "public/tracks")).map(
-      (track) => `tracks/${track}`
-    );
   } else {
-    const s3Client = new S3Client({
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
-      },
-      region: process.env.AWS_REGION,
-    });
     const sampleObjects = await s3Client.send(
       new ListObjectsCommand({
         Bucket: process.env.AWS_BUCKET,
@@ -35,6 +29,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
           `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${content.Key}`
       );
     }
+  }
+  return samples;
+};
+
+export const getTracks = async () => {
+  let tracks: Array<string> = [];
+  if (process.env.NODE_ENV === "development") {
+    tracks = readdirSync(path.join(process.cwd(), "public/tracks")).map(
+      (track) => `tracks/${track}`
+    );
+  } else {
     const trackObjects = await s3Client.send(
       new ListObjectsCommand({
         Bucket: process.env.AWS_BUCKET,
@@ -48,32 +53,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
       );
     }
   }
-  return {
-    props: {
-      samples,
-      tracks,
-    },
-  };
+  return tracks;
 };
-
-interface MadWorldProps {
-  samples: Array<string>;
-  tracks: Array<string>;
-}
-
-const MadWorld = ({ samples, tracks }: MadWorldProps) => {
-  const [interaction, setInteraction] = useState(false);
-  return (
-    <>
-      <Background>
-        {interaction ? (
-          <Player samples={samples} tracks={tracks} />
-        ) : (
-          <Splash onClick={() => setInteraction(true)} />
-        )}
-      </Background>
-    </>
-  );
-};
-
-export default MadWorld;

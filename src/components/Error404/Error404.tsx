@@ -1,7 +1,7 @@
-import * as Styled from "./Error404.styles";
 import Image from "next/image";
+import * as Styled from "./Error404.styles";
 
-const Error404 = () => {
+export default function () {
   return (
     <>
       <Styled.Error404 href="/">
@@ -16,6 +16,4 @@ const Error404 = () => {
       </Styled.Error404>
     </>
   );
-};
-
-export default Error404;
+}

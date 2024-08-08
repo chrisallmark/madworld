@@ -1,10 +1,12 @@
+"use client";
+
 import { Audio, Sample, Track } from "@/components";
 import { useRef, useState } from "react";
 import { Button, Container, Dropdown, Grid, Icon } from "semantic-ui-react";
 import * as Styled from "./Player.styles";
 import { PlayerProps } from "./Player.types";
 
-const Background = ({ samples, tracks }: PlayerProps) => {
+export default function ({ samples, tracks }: PlayerProps) {
   const [sample, setSample] = useState("");
   const [track, setTrack] = useState(
     tracks[Math.floor(Math.random() * tracks.length)]
@@ -101,6 +103,4 @@ const Background = ({ samples, tracks }: PlayerProps) => {
       </Grid>
     </Container>
   );
-};
-
-export default Background;
+}

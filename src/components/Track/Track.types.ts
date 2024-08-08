@@ -1,4 +1,4 @@
-export interface TrackProps {
+export type TrackProps = {
   onEnded?: () => void;
   track: string;
-}
+};

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   forwardRef,
   useCallback,
@@ -5,11 +7,10 @@ import {
   useEffect,
   useImperativeHandle,
 } from "react";
-import { AudioContext } from "./Audio";
+import { AudioContext } from "../Audio/Audio";
 import { SampleProps } from "./Sample.types";
 
-// eslint-disable-next-line react/display-name
-const Sample = forwardRef(({ sample }: SampleProps, ref) => {
+export default forwardRef(function ({ sample }: SampleProps, ref) {
   useImperativeHandle(ref, () => ({ play }));
   const { setVolume } = useContext(AudioContext);
   const play = useCallback(() => {
@@ -40,5 +41,3 @@ const Sample = forwardRef(({ sample }: SampleProps, ref) => {
     </>
   );
 });
-
-export default Sample;

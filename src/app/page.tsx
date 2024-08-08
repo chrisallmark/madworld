@@ -1,9 +1,11 @@
+"use client";
+
 import { Background } from "@/components";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Dimmer, Loader } from "semantic-ui-react";
 
-const Index = () => {
+export default function () {
   const router = useRouter();
   useEffect(() => {
     router.push("/madworld");
@@ -16,6 +18,4 @@ const Index = () => {
       <Background />;
     </>
   );
-};
-
-export default Index;
+}

@@ -1,12 +1,14 @@
+"use client";
+
 import { useContext, useEffect } from "react";
-import { AudioContext } from "./Audio";
+import { AudioContext } from "../Audio/Audio";
 import { TrackProps } from "./Track.types";
 
 let audioContext: AudioContext;
 let gainNode: GainNode;
 let sourceNode: MediaElementAudioSourceNode;
 
-const Track = ({ onEnded, track }: TrackProps) => {
+export default function ({ onEnded, track }: TrackProps) {
   const { volume } = useContext(AudioContext);
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
@@ -35,6 +37,4 @@ const Track = ({ onEnded, track }: TrackProps) => {
       <source src={encodeURI(track)} type="audio/mpeg" />
     </audio>
   );
-};
-
-export default Track;
+}

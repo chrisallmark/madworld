@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useMemo, useState } from "react";
 
 interface AudioContextProps {
@@ -10,12 +12,10 @@ export const AudioContext = createContext<AudioContextProps>({
   setVolume: () => {},
 });
 
-const Audio = ({ children }: React.PropsWithChildren) => {
+export default function ({ children }: React.PropsWithChildren) {
   const [volume, setVolume] = useState(1.0);
   const value = useMemo(() => ({ volume, setVolume }), [volume, setVolume]);
   return (
     <AudioContext.Provider value={value}>{children}</AudioContext.Provider>
   );
-};
-
-export default Audio;
+}

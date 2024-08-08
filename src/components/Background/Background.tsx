@@ -1,7 +1,9 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import * as Styled from "./Background.styles";
 
-const Background = ({ children }: React.PropsWithChildren) => {
+export default function ({ children }: React.PropsWithChildren) {
   const [background, setBackground] = useState(0);
   const [rain, setRain] = useState(<></>);
   useEffect(() => {
@@ -36,6 +38,4 @@ const Background = ({ children }: React.PropsWithChildren) => {
       <Styled.Scanlines>{children}</Styled.Scanlines>
     </Styled.Background>
   );
-};
-
-export default Background;
+}
