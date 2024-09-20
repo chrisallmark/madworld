@@ -1,41 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import * as Styled from "./Background.styles";
+import { useBackground, useRain } from "@/hooks";
+import styled from "styled-components";
+
+const Background = styled.div<{ $background: string }>`
+  background-image: url("/images/madworld-${(props) => props.$background}.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+`;
+
+export const Scanlines = styled.div`
+  align-items: center;
+  background-image: url("/images/scanlines.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+`;
 
 export default function ({ children }: React.PropsWithChildren) {
-  const [background, setBackground] = useState(0);
-  const [rain, setRain] = useState(<></>);
-  useEffect(() => {
-    setTimeout(() => {
-      setBackground(Math.floor(Math.random() * 20));
-    }, 30000);
-  }, [background, setBackground]);
-  useEffect(() => {
-    setRain(
-      <>
-        {Array.from(
-          { length: Math.floor(window.innerWidth / 20) },
-          (_, index) => index
-        ).map((key) => (
-          <Styled.Rain
-            key={key}
-            style={{
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${0.2 + Math.random() * 0.3}s`,
-              left: `${Math.floor(
-                Math.random() * (window.innerWidth * 1.25)
-              )}px`,
-            }}
-          />
-        ))}
-      </>
-    );
-  }, []);
+  const background = useBackground();
+  const rain = useRain();
   return (
-    <Styled.Background $background={String(background).padStart(2, "0")}>
+    <Background $background={background}>
       {rain}
-      <Styled.Scanlines>{children}</Styled.Scanlines>
-    </Styled.Background>
+      <Scanlines>{children}</Scanlines>
+    </Background>
   );
 }
