@@ -1,21 +1,8 @@
-"use client";
+import { MadWorld } from "@/components";
+import { getSamples, getTracks } from "@/services/audio";
 
-import { Background } from "@/components";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { Dimmer, Loader } from "semantic-ui-react";
-
-export default function () {
-  const router = useRouter();
-  useEffect(() => {
-    router.push("/madworld");
-  }, [router]);
-  return (
-    <>
-      <Dimmer active>
-        <Loader />
-      </Dimmer>
-      <Background />;
-    </>
-  );
+export default async function () {
+  const samples = await getSamples();
+  const tracks = await getTracks();
+  return <MadWorld samples={samples} tracks={tracks} />;
 }

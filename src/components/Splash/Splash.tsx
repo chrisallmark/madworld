@@ -6,7 +6,7 @@ export default function ({ onClick }: SplashProps) {
   return (
     <>
       <Link
-        href="/madworld"
+        href="/"
         onClick={onClick}
         style={{
           height: "100%",
