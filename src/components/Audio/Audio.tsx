@@ -2,12 +2,10 @@
 
 import { createContext, useMemo, useState } from "react";
 
-interface AudioContextProps {
+export const AudioContext = createContext<{
   volume: number;
   setVolume: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export const AudioContext = createContext<AudioContextProps>({
+}>({
   volume: 0,
   setVolume: () => {},
 });
