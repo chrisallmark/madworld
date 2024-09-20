@@ -1,12 +1,9 @@
 "use client";
 
-import { useRain } from "@/hooks/useRain";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 
 export function useBackground() {
   const [background, setBackground] = useState(0);
-  const rain = useRain();
   useEffect(() => {
     const id = setTimeout(() => {
       setBackground(Math.floor(Math.random() * 20));
