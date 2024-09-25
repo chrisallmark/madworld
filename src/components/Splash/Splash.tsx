@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { SplashProps } from "./Spash.types";
 import Link from "next/link";
 
-export default function ({ onClick }: SplashProps) {
+export default function ({ onClick }: { onClick: () => void }) {
   return (
     <>
       <Link

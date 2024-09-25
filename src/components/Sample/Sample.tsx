@@ -1,17 +1,79 @@
 "use client";
 
-import { AudioContext } from "@/components/Audio/Audio";
 import { useSample } from "@/hooks";
-import { forwardRef, useContext } from "react";
+import { Button, Dropdown, Grid, Icon } from "semantic-ui-react";
+import styled from "styled-components";
 
-export default forwardRef(function ({ sample }: { sample: string }, ref) {
-  useSample(sample, ref);
-  const { setVolume } = useContext(AudioContext);
-  return sample.length === 0 ? (
-    <></>
-  ) : (
-    <audio crossOrigin="anonymous" id="sample" onEnded={() => setVolume(1)}>
-      <source src={encodeURI(sample)} type="audio/mpeg" />
-    </audio>
+export const Sample = styled.div`
+  .ui {
+    .menu {
+      background-color: #1b1c1d;
+      > .message:not(.ui) {
+        color: red;
+      }
+      .text {
+        color: white;
+      }
+    }
+    .search {
+      color: white;
+    }
+  }
+`;
+
+export default function ({ samples }: { samples: Array<string> }) {
+  const { sample, setSample, repeat } = useSample();
+  return (
+    <>
+      <audio crossOrigin="anonymous" id="sample">
+        <source src={encodeURI(sample)} type="audio/mpeg" />
+      </audio>
+      <Grid stackable>
+        <Grid.Column textAlign="center" width={13}>
+          <Sample>
+            <Dropdown
+              button
+              className="black icon"
+              icon="microphone"
+              floating
+              fluid
+              labeled
+              onChange={(_, d) => setSample(d.value as string)}
+              options={samples.map((sample) => ({
+                key: sample,
+                text: sample
+                  .slice(sample.lastIndexOf("/") + 1)
+                  .replace(".mp3", ""),
+                value: sample,
+              }))}
+              placeholder="Select Sample..."
+              search
+              value={sample}
+            />
+          </Sample>
+        </Grid.Column>
+        <Grid.Column textAlign="left" width={3}>
+          <Button.Group fluid>
+            <Button
+              color="black"
+              icon
+              onClick={() =>
+                setSample(samples[Math.floor(Math.random() * samples.length)])
+              }
+            >
+              <Icon inverted name="random" size="large" />
+            </Button>
+            <Button
+              color="black"
+              disabled={sample === ""}
+              icon
+              onClick={() => repeat()}
+            >
+              <Icon inverted name="repeat" size="large" />
+            </Button>
+          </Button.Group>
+        </Grid.Column>
+      </Grid>
+    </>
   );
-});
+}

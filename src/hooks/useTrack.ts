@@ -1,20 +1,35 @@
 "use client";
 
-import { AudioContext } from "@/components/Audio/Audio";
-import { useContext, useEffect } from "react";
+import { AudioContext } from "@/contexts";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 let audioContext: AudioContext;
 let gainNode: GainNode;
 let sourceNode: MediaElementAudioSourceNode;
 
-export function useTrack(track: string) {
+export function useTrack(tracks: Array<string>): {
+  track: string;
+  setTrack: (track: string) => void;
+} {
+  const [track, setTrack] = useState(
+    tracks[Math.floor(Math.random() * tracks.length)]
+  );
   const { volume } = useContext(AudioContext);
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
-    if (audio) {
-      audio.load();
-      audio.play();
-    }
+    audio.load();
+    audio.play().catch((reason) => {
+      console.log(reason);
+    });
+    return () => {
+      audio.pause();
+    };
   }, [track]);
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement;
@@ -31,4 +46,5 @@ export function useTrack(track: string) {
     }
     gainNode.gain.value = volume;
   }, [volume]);
+  return { track, setTrack };
 }

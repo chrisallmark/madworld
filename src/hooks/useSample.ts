@@ -1,28 +1,28 @@
 "use client";
 
-import { AudioContext } from "@/components/Audio/Audio";
-import {
-  ForwardedRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-} from "react";
+import { AudioContext } from "@/contexts";
+import { useContext, useEffect, useState } from "react";
 
-export function useSample(sample: string, ref: ForwardedRef<unknown>) {
+export function useSample(): {
+  sample: string;
+  setSample: (sample: string) => void;
+  repeat: () => void;
+} {
+  const [repeat, setRepeat] = useState(0);
+  const [sample, setSample] = useState("");
   const { setVolume } = useContext(AudioContext);
-  const play = useCallback(() => {
-    const audio = document.getElementById("sample") as HTMLAudioElement;
-    setVolume(0.33);
-    setTimeout(() => {
-      audio.load();
-      audio.play();
-    }, 100);
-  }, [setVolume]);
-  useImperativeHandle(ref, () => ({ play }));
   useEffect(() => {
     if (sample.length > 0) {
-      play();
+      const audio = document.getElementById("sample") as HTMLAudioElement;
+      setVolume(0.33);
+      setTimeout(() => {
+        audio.load();
+        audio.play();
+        audio.addEventListener("ended", () => {
+          setVolume(1);
+        });
+      }, 100);
     }
-  }, [play, sample]);
+  }, [repeat, sample]);
+  return { sample, setSample, repeat: () => setRepeat(repeat + 1) };
 }
