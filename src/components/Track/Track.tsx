@@ -4,7 +4,7 @@ import { useTrack } from "@/hooks";
 import { Dropdown } from "semantic-ui-react";
 import styled from "styled-components";
 
-export const Track = styled.div`
+export const TrackDiv = styled.div`
   .ui {
     .menu {
       background-color: #1b1c1d;
@@ -21,7 +21,7 @@ export const Track = styled.div`
   }
 `;
 
-export default function ({ tracks }: { tracks: Array<string> }) {
+export default function Track({ tracks }: { tracks: Array<string> }) {
   const { track, setTrack } = useTrack(tracks);
   return (
     <>
@@ -38,7 +38,7 @@ export default function ({ tracks }: { tracks: Array<string> }) {
       >
         <source src={encodeURI(track)} type="audio/mpeg" />
       </audio>
-      <Track>
+      <TrackDiv>
         <Dropdown
           button
           className="black icon"
@@ -56,7 +56,7 @@ export default function ({ tracks }: { tracks: Array<string> }) {
           placeholder="Select Track"
           value={track}
         />
-      </Track>
+      </TrackDiv>
     </>
   );
 }

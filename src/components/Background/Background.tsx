@@ -3,7 +3,7 @@
 import { useBackground, useRain } from "@/hooks";
 import styled from "styled-components";
 
-const Background = styled.div<{ $background: string }>`
+const BackgroundDiv = styled.div<{ $background: string }>`
   background-image: url("/images/madworld-${(props) => props.$background}.jpg");
   background-position: center;
   background-size: cover;
@@ -13,7 +13,7 @@ const Background = styled.div<{ $background: string }>`
   width: 100%;
 `;
 
-export const Scanlines = styled.div`
+export const ScanlinesDiv = styled.div`
   align-items: center;
   background-image: url("/images/scanlines.png");
   background-position: center;
@@ -27,13 +27,13 @@ export const Scanlines = styled.div`
   width: 100%;
 `;
 
-export default function ({ children }: React.PropsWithChildren) {
+export default function Background({ children }: React.PropsWithChildren) {
   const background = useBackground();
   const rain = useRain();
   return (
-    <Background $background={background}>
+    <BackgroundDiv $background={background}>
       {rain}
-      <Scanlines>{children}</Scanlines>
-    </Background>
+      <ScanlinesDiv>{children}</ScanlinesDiv>
+    </BackgroundDiv>
   );
 }

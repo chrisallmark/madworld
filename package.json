@@ -9,21 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.654.0",
-    "@vercel/speed-insights": "^1.0.12",
-    "next": "14.2.30",
-    "react": "^18",
-    "react-dom": "^18",
+    "@aws-sdk/client-s3": "^3.846.0",
+    "@vercel/speed-insights": "^1.2.0",
+    "next": "15.4.1",
+    "react": "^19",
+    "react-dom": "^19",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^3.0.0-beta.2",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@types/node": "^22",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "14.2.13",
+    "eslint-config-next": "15.4.1",
     "typescript": "^5"
   },
   "browser": {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-const Error404 = styled(Link)`
+const Error404Link = styled(Link)`
   height: 100%;
   margin: 1em 0;
   max-height: 354px;
@@ -13,10 +13,10 @@ const Error404 = styled(Link)`
   width: 100%;
 `;
 
-export default function () {
+export default function Error404() {
   return (
     <>
-      <Error404 href="/">
+      <Error404Link href="/">
         <Image
           alt="Error 404"
           fill
@@ -25,7 +25,7 @@ export default function () {
           src="/images/error-404.gif"
           style={{ objectFit: "contain" }}
         />
-      </Error404>
+      </Error404Link>
     </>
   );
 }

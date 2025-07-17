@@ -1,6 +1,6 @@
 import { Background, Error404 } from "@/components";
 
-export default function () {
+export default function NotFound() {
   return (
     <Background>
       <Error404 />

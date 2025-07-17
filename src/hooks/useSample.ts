@@ -23,6 +23,6 @@ export function useSample(): {
         });
       }, 100);
     }
-  }, [repeat, sample]);
+  }, [repeat, sample, setVolume]);
   return { sample, setSample, repeat: () => setRepeat(repeat + 1) };
 }
