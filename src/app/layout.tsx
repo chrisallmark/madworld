@@ -2,7 +2,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
-import "semantic-ui-css/semantic.min.css";
+import "./semantic.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "400", "600"] });
 
