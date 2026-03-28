@@ -23,28 +23,40 @@ const Rain = styled.hr`
   }
 `;
 
+interface RainDrop {
+  animationDelay: string;
+  animationDuration: string;
+  left: string;
+}
+
 export function useRain() {
-  const [rain, setRain] = useState(<></>);
+  const [rainDrops, setRainDrops] = useState<Array<RainDrop>>([]);
+
   useEffect(() => {
-    setRain(
-      <>
-        {Array.from(
-          { length: Math.floor(window.innerWidth / 20) },
-          (_, index) => index
-        ).map((key) => (
-          <Rain
-            key={key}
-            style={{
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${0.2 + Math.random() * 0.3}s`,
-              left: `${Math.floor(
-                Math.random() * (window.innerWidth * 1.25)
-              )}px`,
-            }}
-          />
-        ))}
-      </>
-    );
+    const updateRain = () => {
+      setRainDrops(
+        Array.from({ length: Math.floor(window.innerWidth / 20) }, () => ({
+          animationDelay: `${Math.random() * 5}s`,
+          animationDuration: `${0.2 + Math.random() * 0.3}s`,
+          left: `${Math.floor(Math.random() * (window.innerWidth * 1.25))}px`,
+        }))
+      );
+    };
+
+    const frame = window.requestAnimationFrame(updateRain);
+    window.addEventListener("resize", updateRain);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("resize", updateRain);
+    };
   }, []);
-  return rain;
+
+  return (
+    <>
+      {rainDrops.map((rainDrop, index) => (
+        <Rain key={index} style={rainDrop} />
+      ))}
+    </>
+  );
 }

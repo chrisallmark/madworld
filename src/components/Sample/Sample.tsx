@@ -26,7 +26,7 @@ export default function Sample({ samples }: { samples: Array<string> }) {
   return (
     <>
       <audio crossOrigin="anonymous" id="sample">
-        <source src={encodeURI(sample)} type="audio/mpeg" />
+        {sample ? <source src={encodeURI(sample)} type="audio/mpeg" /> : null}
       </audio>
       <Grid stackable>
         <Grid.Column textAlign="center" width={13}>

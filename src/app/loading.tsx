@@ -7,7 +7,7 @@ export default function Loading() {
       <Dimmer active>
         <Loader />
       </Dimmer>
-      <Background />;
+      <Background />
     </>
   );
 }
