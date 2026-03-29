@@ -75,3 +75,12 @@ resource "aws_s3_object" "madworld-tracks" {
   source      = "../public/tracks/${each.value}"
   source_hash = filemd5("../public/tracks/${each.value}")
 }
+
+resource "aws_s3_object" "madworld-videos" {
+  for_each    = fileset("../public/videos/", "**")
+  acl         = "public-read"
+  bucket      = var.bucket
+  key         = "videos/${each.value}"
+  source      = "../public/videos/${each.value}"
+  source_hash = filemd5("../public/videos/${each.value}")
+}
