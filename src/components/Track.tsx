@@ -21,7 +21,7 @@ export const TrackDiv = styled.div`
   }
 `;
 
-export default function Track({ tracks }: { tracks: Array<string> }) {
+export function Track({ tracks }: { tracks: Array<string> }) {
   const { track, setTrack } = useTrack(tracks);
   return (
     <>
@@ -36,7 +36,9 @@ export default function Track({ tracks }: { tracks: Array<string> }) {
           setTrack(shuffle);
         }}
       >
-        <source src={encodeURI(track)} type="audio/mpeg" />
+        {track.length > 0 && (
+          <source src={encodeURI(track)} type="audio/mpeg" />
+        )}
       </audio>
       <TrackDiv>
         <Dropdown

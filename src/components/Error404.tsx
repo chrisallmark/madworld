@@ -13,7 +13,7 @@ const Error404Link = styled(Link)`
   width: 100%;
 `;
 
-export default function Error404() {
+export function Error404() {
   return (
     <>
       <Error404Link href="/">

@@ -10,7 +10,7 @@ const MadWorldLogo = styled.img`
   width: 100%;
 `;
 
-export default function Player({
+export function Player({
   samples,
   tracks,
 }: {

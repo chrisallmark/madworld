@@ -1,9 +1,7 @@
-import Background from "./Background/Background";
-import Error404 from "./Error404/Error404";
-import MadWorld from "./MadWorld/MadWorld";
-import Player from "./Player/Player";
-import Sample from "./Sample/Sample";
-import Splash from "./Splash/Splash";
-import Track from "./Track/Track";
-
-export { Background, Error404, MadWorld, Player, Sample, Splash, Track };
+export { Background } from "./Background";
+export { Error404 } from "./Error404";
+export { MadWorld } from "./MadWorld";
+export { Player } from "./Player";
+export { Sample } from "./Sample";
+export { Splash } from "./Splash";
+export { Track } from "./Track";

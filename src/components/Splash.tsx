@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Splash({ onClick }: { onClick: () => void }) {
+export function Splash({ onClick }: { onClick: () => void }) {
   return (
     <>
       <Link

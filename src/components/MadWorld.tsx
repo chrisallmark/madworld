@@ -8,7 +8,7 @@ interface MadWorldProps {
   tracks: Array<string>;
 }
 
-export default function MadWorld({ samples, tracks }: MadWorldProps) {
+export function MadWorld({ samples, tracks }: MadWorldProps) {
   const [interaction, setInteraction] = useState(false);
   return (
     <Background>

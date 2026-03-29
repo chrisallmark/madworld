@@ -21,7 +21,7 @@ export const SampleDiv = styled.div`
   }
 `;
 
-export default function Sample({ samples }: { samples: Array<string> }) {
+export function Sample({ samples }: { samples: Array<string> }) {
   const { sample, setSample, repeat } = useSample();
   return (
     <>

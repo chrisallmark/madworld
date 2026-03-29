@@ -3,15 +3,41 @@
 import { AudioContext } from "@/contexts";
 import { useContext, useEffect, useRef, useState } from "react";
 
+function getRandomTrack(tracks: Array<string>) {
+  if (tracks.length === 0) {
+    return "";
+  }
+
+  return tracks[Math.floor(Math.random() * tracks.length)];
+}
+
 export function useTrack(tracks: Array<string>): {
   track: string;
   setTrack: (track: string) => void;
 } {
-  const [track, setTrack] = useState(tracks[0] ?? "");
+  const [track, setTrack] = useState("");
   const { volume } = useContext(AudioContext);
   const gainNodeRef = useRef<GainNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setTrack((currentTrack) => {
+        if (tracks.length === 0) {
+          return "";
+        }
+
+        return currentTrack.length > 0 && tracks.includes(currentTrack)
+          ? currentTrack
+          : getRandomTrack(tracks);
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [tracks]);
 
   useEffect(() => {
     const audio = document.getElementById("track") as HTMLAudioElement | null;

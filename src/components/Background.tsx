@@ -39,7 +39,7 @@ export const ScanlinesDiv = styled.div`
   width: 100%;
 `;
 
-export default function Background({ children }: React.PropsWithChildren) {
+export function Background({ children }: React.PropsWithChildren) {
   const background = useBackground();
   const rain = useRain();
   const [videoFailed, setVideoFailed] = useState(false);
