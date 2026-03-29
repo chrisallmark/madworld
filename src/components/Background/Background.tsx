@@ -1,7 +1,7 @@
 "use client";
 
 import { useBackground, useRain } from "@/hooks";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const BackgroundDiv = styled.div<{ $background: string }>`
@@ -44,8 +44,6 @@ export default function Background({ children }: React.PropsWithChildren) {
   const rain = useRain();
   const [videoFailed, setVideoFailed] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-  const hasRandomizedStart = useRef(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
     <BackgroundDiv $background={background}>
@@ -55,29 +53,17 @@ export default function Background({ children }: React.PropsWithChildren) {
           autoPlay
           loop
           muted
-          onLoadedMetadata={() => {
-            const video = videoRef.current;
-            if (
-              !video ||
-              hasRandomizedStart.current ||
-              !Number.isFinite(video.duration) ||
-              video.duration <= 0
-            ) {
-              return;
-            }
-
-            video.currentTime = Math.random() * video.duration;
-            hasRandomizedStart.current = true;
-          }}
           onCanPlay={() => setVideoReady(true)}
           onError={() => {
             setVideoFailed(true);
             setVideoReady(false);
           }}
           playsInline
-          ref={videoRef}
         >
-          <source src="/videos/madworld.mp4" type="video/mp4" />
+          <source
+            src={`${process.env.NODE_ENV === "development" ? "/videos/madworld.mp4" : "https://chrisallmark-madworld.s3.eu-west-1.amazonaws.com/videos/madworld.mp4"}`}
+            type="video/mp4"
+          />
         </BackgroundVideo>
       ) : null}
       {rain}
