@@ -1,6 +1,7 @@
 "use client";
 
-import { AudioContext } from "@/contexts";
+import { AudioVolumeContext } from "@/contexts";
+import { getAudioElement } from "@/helpers/audioElement";
 import { useContext, useEffect, useRef, useState } from "react";
 
 function getRandomTrack(tracks: Array<string>) {
@@ -16,7 +17,7 @@ export function useTrack(tracks: Array<string>): {
   setTrack: (track: string) => void;
 } {
   const [track, setTrack] = useState("");
-  const { volume } = useContext(AudioContext);
+  const { volume } = useContext(AudioVolumeContext);
   const gainNodeRef = useRef<GainNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
@@ -40,7 +41,7 @@ export function useTrack(tracks: Array<string>): {
   }, [tracks]);
 
   useEffect(() => {
-    const audio = document.getElementById("track") as HTMLAudioElement | null;
+    const audio = getAudioElement("track");
     if (!audio || track.length === 0) {
       return;
     }
@@ -54,7 +55,7 @@ export function useTrack(tracks: Array<string>): {
   }, [track]);
 
   useEffect(() => {
-    const audio = document.getElementById("track") as HTMLAudioElement | null;
+    const audio = getAudioElement("track");
     if (!audio) {
       return;
     }

@@ -1,25 +1,9 @@
 "use client";
 
+import { AudioDropdown } from "@/components/AudioDropdown";
 import { useTrack } from "@/hooks";
+import { displayNameFromUrl } from "@/helpers/format";
 import { Dropdown } from "semantic-ui-react";
-import styled from "styled-components";
-
-export const TrackDiv = styled.div`
-  .ui {
-    .menu {
-      background-color: #1b1c1d;
-      > .message:not(.ui) {
-        color: red;
-      }
-      .text {
-        color: white;
-      }
-    }
-    .search {
-      color: white;
-    }
-  }
-`;
 
 export function Track({ tracks }: { tracks: Array<string> }) {
   const { track, setTrack } = useTrack(tracks);
@@ -40,7 +24,7 @@ export function Track({ tracks }: { tracks: Array<string> }) {
           <source src={encodeURI(track)} type="audio/mpeg" />
         )}
       </audio>
-      <TrackDiv>
+      <AudioDropdown>
         <Dropdown
           button
           className="black icon"
@@ -51,14 +35,14 @@ export function Track({ tracks }: { tracks: Array<string> }) {
           onChange={(_, d) => setTrack(d.value as string)}
           options={tracks.map((track) => ({
             key: track,
-            text: track.slice(track.lastIndexOf("/") + 1).replace(".mp3", ""),
+            text: displayNameFromUrl(track),
             value: track,
           }))}
           search
           placeholder="Select Track"
           value={track}
         />
-      </TrackDiv>
+      </AudioDropdown>
     </>
   );
 }

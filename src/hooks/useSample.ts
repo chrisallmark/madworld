@@ -1,7 +1,12 @@
 "use client";
 
-import { AudioContext } from "@/contexts";
+import { AudioVolumeContext } from "@/contexts";
+import { getAudioElement } from "@/helpers/audioElement";
 import { useContext, useEffect, useState } from "react";
+
+const DUCK_VOLUME = 0.33;
+const FULL_VOLUME = 1;
+const SAMPLE_START_DELAY_MS = 100;
 
 export function useSample(): {
   sample: string;
@@ -10,29 +15,29 @@ export function useSample(): {
 } {
   const [repeat, setRepeat] = useState(0);
   const [sample, setSample] = useState("");
-  const { setVolume } = useContext(AudioContext);
+  const { setVolume } = useContext(AudioVolumeContext);
 
   useEffect(() => {
     if (sample.length === 0) {
       return;
     }
 
-    const audio = document.getElementById("sample") as HTMLAudioElement | null;
+    const audio = getAudioElement("sample");
     if (!audio) {
       return;
     }
 
-    setVolume(0.33);
+    setVolume(DUCK_VOLUME);
 
     const timeoutId = window.setTimeout(() => {
       audio.load();
       audio.onended = () => {
-        setVolume(1);
+        setVolume(FULL_VOLUME);
       };
       void audio.play().catch(() => {
-        setVolume(1);
+        setVolume(FULL_VOLUME);
       });
-    }, 100);
+    }, SAMPLE_START_DELAY_MS);
 
     return () => {
       window.clearTimeout(timeoutId);

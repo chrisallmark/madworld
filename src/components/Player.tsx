@@ -1,7 +1,7 @@
 "use client";
 
 import { Sample, Track } from "@/components";
-import { AudioProvider } from "@/contexts";
+import { AudioVolumeProvider } from "@/contexts";
 import { Container, Grid } from "semantic-ui-react";
 import styled from "styled-components";
 
@@ -18,9 +18,9 @@ export function Player({
   tracks: Array<string>;
 }) {
   return (
-    <AudioProvider>
+    <AudioVolumeProvider>
       <Container>
-        <MadWorldLogo alt="Madword" src="/images/madworld-logo.png" />
+        <MadWorldLogo alt="MadWorld" src="/images/madworld-logo.png" />
         <Grid stackable>
           <Grid.Column width={2} />
           <Grid.Column textAlign="right" width={5}>
@@ -32,6 +32,6 @@ export function Player({
           <Grid.Column width={2} />
         </Grid>
       </Container>
-    </AudioProvider>
+    </AudioVolumeProvider>
   );
 }

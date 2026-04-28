@@ -2,7 +2,7 @@
 
 import { createContext, useState } from "react";
 
-export const AudioContext = createContext<{
+export const AudioVolumeContext = createContext<{
   volume: number;
   setVolume: (volume: number) => void;
 }>({
@@ -10,11 +10,11 @@ export const AudioContext = createContext<{
   setVolume: () => {},
 });
 
-export function AudioProvider({ children }: React.PropsWithChildren) {
+export function AudioVolumeProvider({ children }: React.PropsWithChildren) {
   const [volume, setVolume] = useState(1.0);
   return (
-    <AudioContext.Provider value={{ volume, setVolume }}>
+    <AudioVolumeContext.Provider value={{ volume, setVolume }}>
       {children}
-    </AudioContext.Provider>
+    </AudioVolumeContext.Provider>
   );
 }

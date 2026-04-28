@@ -2,13 +2,13 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = var.region
 }
 
 resource "aws_s3_bucket" "madworld" {
@@ -42,7 +42,7 @@ resource "aws_s3_bucket_cors_configuration" "madworld" {
     allowed_origins = var.allowed_origins
     expose_headers = [
       "Content-Length",
-      "Content-Typeid",
+      "Content-Type",
       "ETag"
     ]
     max_age_seconds = 3000

@@ -20,7 +20,7 @@ export function Error404() {
         <Image
           alt="Error 404"
           fill
-          priority={true}
+          priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src="/images/error-404.gif"
           style={{ objectFit: "contain" }}

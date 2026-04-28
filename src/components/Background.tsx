@@ -39,7 +39,12 @@ export const ScanlinesDiv = styled.div`
   width: 100%;
 `;
 
-export function Background({ children }: React.PropsWithChildren) {
+interface BackgroundProps {
+  videoUrl?: string;
+  children?: React.ReactNode;
+}
+
+export function Background({ videoUrl, children }: BackgroundProps) {
   const background = useBackground();
   const rain = useRain();
   const [videoFailed, setVideoFailed] = useState(false);
@@ -47,7 +52,7 @@ export function Background({ children }: React.PropsWithChildren) {
 
   return (
     <BackgroundDiv $background={background}>
-      {!videoFailed ? (
+      {videoUrl && !videoFailed ? (
         <BackgroundVideo
           $hidden={!videoReady}
           autoPlay
@@ -60,10 +65,7 @@ export function Background({ children }: React.PropsWithChildren) {
           }}
           playsInline
         >
-          <source
-            src={`${process.env.NODE_ENV === "development" ? "/videos/madworld.mp4" : "https://chrisallmark-madworld.s3.eu-west-1.amazonaws.com/videos/madworld.mp4"}`}
-            type="video/mp4"
-          />
+          <source src={videoUrl} type="video/mp4" />
         </BackgroundVideo>
       ) : null}
       {rain}

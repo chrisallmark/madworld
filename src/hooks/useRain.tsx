@@ -29,17 +29,26 @@ interface RainDrop {
   left: string;
 }
 
+const PIXELS_PER_RAINDROP = 20;
+const MAX_DELAY_S = 5;
+const MIN_DURATION_S = 0.2;
+const DURATION_VARIANCE_S = 0.3;
+const HORIZONTAL_SPREAD = 1.25;
+
 export function useRain() {
   const [rainDrops, setRainDrops] = useState<Array<RainDrop>>([]);
 
   useEffect(() => {
     const updateRain = () => {
       setRainDrops(
-        Array.from({ length: Math.floor(window.innerWidth / 20) }, () => ({
-          animationDelay: `${Math.random() * 5}s`,
-          animationDuration: `${0.2 + Math.random() * 0.3}s`,
-          left: `${Math.floor(Math.random() * (window.innerWidth * 1.25))}px`,
-        }))
+        Array.from(
+          { length: Math.floor(window.innerWidth / PIXELS_PER_RAINDROP) },
+          () => ({
+            animationDelay: `${Math.random() * MAX_DELAY_S}s`,
+            animationDuration: `${MIN_DURATION_S + Math.random() * DURATION_VARIANCE_S}s`,
+            left: `${Math.floor(Math.random() * (window.innerWidth * HORIZONTAL_SPREAD))}px`,
+          }),
+        ),
       );
     };
 

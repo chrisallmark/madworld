@@ -1,25 +1,9 @@
 "use client";
 
+import { AudioDropdown } from "@/components/AudioDropdown";
 import { useSample } from "@/hooks";
+import { displayNameFromUrl } from "@/helpers/format";
 import { Button, Dropdown, Grid, Icon } from "semantic-ui-react";
-import styled from "styled-components";
-
-export const SampleDiv = styled.div`
-  .ui {
-    .menu {
-      background-color: #1b1c1d;
-      > .message:not(.ui) {
-        color: red;
-      }
-      .text {
-        color: white;
-      }
-    }
-    .search {
-      color: white;
-    }
-  }
-`;
 
 export function Sample({ samples }: { samples: Array<string> }) {
   const { sample, setSample, repeat } = useSample();
@@ -30,7 +14,7 @@ export function Sample({ samples }: { samples: Array<string> }) {
       </audio>
       <Grid stackable>
         <Grid.Column textAlign="center" width={13}>
-          <SampleDiv>
+          <AudioDropdown>
             <Dropdown
               button
               className="black icon"
@@ -41,16 +25,14 @@ export function Sample({ samples }: { samples: Array<string> }) {
               onChange={(_, d) => setSample(d.value as string)}
               options={samples.map((sample) => ({
                 key: sample,
-                text: sample
-                  .slice(sample.lastIndexOf("/") + 1)
-                  .replace(".mp3", ""),
+                text: displayNameFromUrl(sample),
                 value: sample,
               }))}
               placeholder="Select Sample..."
               search
               value={sample}
             />
-          </SampleDiv>
+          </AudioDropdown>
         </Grid.Column>
         <Grid.Column textAlign="left" width={3}>
           <Button.Group fluid>

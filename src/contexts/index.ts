@@ -1,3 +1,3 @@
-import { AudioContext, AudioProvider } from "./Audio";
+import { AudioVolumeContext, AudioVolumeProvider } from "./Audio";
 
-export { AudioContext, AudioProvider };
+export { AudioVolumeContext, AudioVolumeProvider };
