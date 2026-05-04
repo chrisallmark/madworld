@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `yarn` — install dependencies
 - `yarn dev` — Next.js dev server (uses local files in `public/`)
 - `yarn build` / `yarn start` — production build (reads audio from S3)
-- `yarn lint` — ESLint (`eslint-config-next` core-web-vitals + TS)
+- `yarn lint` — ESLint 9 flat config (`eslint.config.mjs`; `eslint-config-next` core-web-vitals + TS)
 
 There are no tests in this project.
 
@@ -54,7 +54,7 @@ The two `<audio>` elements are referenced by DOM id (looked up via `getAudioElem
 
 ## Security headers
 
-`next.config.mjs` exports a `headers()` function that applies CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy to all routes. The CSP allows `'unsafe-inline'` for both scripts (Next inline) and styles (styled-components / Semantic UI), plus `https://*.amazonaws.com` for S3 media and `https://va.vercel-scripts.com` / `https://vitals.vercel-insights.com` for Speed Insights, and `https://fonts.{googleapis,gstatic}.com` for the Lato webfont imported by `semantic.css`. If you add a new third-party script, font, or media host, update the matching CSP directive.
+`next.config.mjs` exports a `headers()` function that applies CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy to all routes. The CSP allows `'unsafe-inline'` for both scripts (Next inline) and styles (styled-components / Semantic UI); in development it also adds `'unsafe-eval'` to `script-src` for Next.js HMR. `https://*.amazonaws.com` is allowed for S3 media, `https://va.vercel-scripts.com` in `script-src` and both `https://va.vercel-scripts.com` / `https://vitals.vercel-insights.com` in `connect-src` for Speed Insights, and `https://fonts.googleapis.com` / `https://fonts.gstatic.com` for the Lato webfont imported by `semantic.css`. If you add a new third-party script, font, or media host, update the matching CSP directive.
 
 ## Deployment
 
