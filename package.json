@@ -2,6 +2,13 @@
   "name": "madworld",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.0.3",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -27,6 +34,5 @@
   },
   "browser": {
     "fs": false
-  },
-  "packageManager": "pnpm@11.0.3"
+  }
 }
