@@ -3,10 +3,7 @@
 import { AudioVolumeContext } from "@/contexts";
 import { getAudioElement } from "@/helpers/audioElement";
 import { useContext, useEffect, useState } from "react";
-
-const DUCK_VOLUME = 0.33;
-const FULL_VOLUME = 1;
-const SAMPLE_START_DELAY_MS = 100;
+import { DUCK_VOLUME, FULL_VOLUME, SAMPLE_START_DELAY_MS } from "./audioConstants";
 
 export function useSample(): {
   sample: string;
@@ -15,7 +12,7 @@ export function useSample(): {
 } {
   const [repeat, setRepeat] = useState(0);
   const [sample, setSample] = useState("");
-  const { setVolume } = useContext(AudioVolumeContext);
+  const { setVolume, notifyAudioPlayed } = useContext(AudioVolumeContext);
 
   useEffect(() => {
     if (sample.length === 0) {
@@ -27,9 +24,11 @@ export function useSample(): {
       return;
     }
 
+    notifyAudioPlayed();
     setVolume(DUCK_VOLUME);
 
     const timeoutId = window.setTimeout(() => {
+      audio.removeAttribute("src");
       audio.load();
       audio.onended = () => {
         setVolume(FULL_VOLUME);
@@ -43,7 +42,7 @@ export function useSample(): {
       window.clearTimeout(timeoutId);
       audio.onended = null;
     };
-  }, [repeat, sample, setVolume]);
+  }, [repeat, sample, setVolume, notifyAudioPlayed]);
 
   return { sample, setSample, repeat: () => setRepeat(repeat + 1) };
 }

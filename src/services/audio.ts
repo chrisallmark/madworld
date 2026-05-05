@@ -72,6 +72,7 @@ async function listMedia(prefix: string): Promise<Array<string>> {
   return isDevelopment() ? listLocal(prefix) : listS3(prefix);
 }
 
+export const getExtras = () => listMedia("extras");
 export const getSamples = () => listMedia("samples");
 export const getTracks = () => listMedia("tracks");
 
