@@ -14,20 +14,20 @@ In a blatant act of copyright infringement, this application plays randomised tr
 ## Install Package Dependencies
 
 ```
-yarn
+pnpm install
 ```
 
 ## Development Build
 
 ```
-yarn dev
+pnpm dev
 ```
 
 ## Production Build
 
 ```
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
 ### AWS Configuration

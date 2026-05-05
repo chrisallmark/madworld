@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `yarn` — install dependencies
-- `yarn dev` — Next.js dev server (uses local files in `public/`)
-- `yarn build` / `yarn start` — production build (reads audio from S3)
-- `yarn lint` — ESLint 9 flat config (`eslint.config.mjs`; `eslint-config-next` core-web-vitals + TS)
+- `pnpm install` — install dependencies
+- `pnpm dev` — Next.js dev server (uses local files in `public/`)
+- `pnpm build` / `pnpm start` — production build (reads audio from S3)
+- `pnpm lint` — ESLint 9 flat config (`eslint.config.mjs`; `eslint-config-next` core-web-vitals + TS)
 
 There are no tests in this project.
 
@@ -48,7 +48,7 @@ The two `<audio>` elements are referenced by DOM id (looked up via `getAudioElem
 
 ## Dependency pins
 
-- **React stays on `^18`** even though Next 16 supports React 19. The reason is `semantic-ui-react@3.0.0-beta.2`, whose peer-deps cap at `react@^18`. Both the latest beta (3.x) and stable (2.x) advertise the same cap. Bumping React triggers peer-dep warnings on `yarn install` and risks runtime breakage from React 19's removed legacy APIs (semantic-ui-react still uses class components and older ref patterns). Don't bump React 18 → 19 without first replacing or upgrading semantic-ui-react.
+- **React stays on `^18`** even though Next 16 supports React 19. The reason is `semantic-ui-react@3.0.0-beta.2`, whose peer-deps cap at `react@^18`. Both the latest beta (3.x) and stable (2.x) advertise the same cap. Bumping React triggers peer-dep warnings on `pnpm install` and risks runtime breakage from React 19's removed legacy APIs (semantic-ui-react still uses class components and older ref patterns). Don't bump React 18 → 19 without first replacing or upgrading semantic-ui-react.
 - `@types/node@^25` matches the current Node major; not LTS-pinned.
 - `semantic-ui-react@3.0.0-beta.2` is the latest 3.x; no stable 3.x exists yet.
 
