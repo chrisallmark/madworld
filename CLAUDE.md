@@ -19,7 +19,7 @@ Next.js 16 App Router app (TypeScript, React 18) — a single-page audio player.
 
 `src/services/audio.ts` is the seam between the two modes and is the only place that branches on `NODE_ENV`:
 
-- **Development**: `getSamples` / `getTracks` read filenames from `public/samples` and `public/tracks` via `fs.readdirSync`. The `package.json` `"browser": { "fs": false }` field prevents `fs` from leaking into client bundles — these helpers must stay server-only (called from `src/app/page.tsx`, a server component).
+- **Development**: `getExtras` / `getSamples` / `getTracks` read filenames from `public/extras`, `public/samples`, and `public/tracks` via `fs.readdirSync`. The `package.json` `"browser": { "fs": false }` field prevents `fs` from leaking into client bundles — these helpers must stay server-only (called from `src/app/page.tsx`, a server component).
 - **Production**: same helpers list objects from an S3 bucket using `@aws-sdk/client-s3` (lazy-initialised via `getS3Client()`, which calls `requireEnv()` for `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_BUCKET`). `listS3` paginates via `ListObjectsV2Command` continuation tokens. The Terraform in `terraform/` provisions the bucket and uploads everything under `public/{samples,tracks,extras,videos}` to matching S3 prefixes.
 - `getVideoUrl()` follows the same dev/prod split and is consumed by `page.tsx` (server) → threaded as a `videoUrl` prop through `MadWorld` → `Background`. Don't reintroduce the prod URL inline in any client component.
 
@@ -27,14 +27,17 @@ When adding new audio asset categories, both `audio.ts` and `terraform/main.tf` 
 
 ### Component flow
 
-`page.tsx` (server) fetches sample/track lists and the video URL → `MadWorld` (client) gates the UI on a click via `Splash` to satisfy browser autoplay policies → `Player` mounts `AudioVolumeProvider` plus `Track` and `Sample`.
+`page.tsx` (server) fetches extras/sample/track lists and the video URL → `MadWorld` (client) gates the UI on a click via `Splash` to satisfy browser autoplay policies → `Player` mounts `AudioVolumeProvider`, with an inner `PlayerContent` component that calls `useExtra` and renders `Track` and `Sample`.
 
 ### Audio coordination via context
 
-`src/contexts/Audio.tsx` exposes `AudioVolumeContext` / `AudioVolumeProvider`. The context is deliberately *not* called `AudioContext` because that would shadow the browser's `window.AudioContext` global used by `useTrack`.
+`src/contexts/Audio.tsx` exposes `AudioVolumeContext` / `AudioVolumeProvider`. The context is deliberately *not* called `AudioContext` because that would shadow the browser's `window.AudioContext` global used by `useTrack`. In addition to `volume`/`setVolume`, the context carries `lastAudioPlayedAt` (timestamp, initialized to `Date.now()`) and `notifyAudioPlayed` (resets the timestamp). Both `useSample` and `useExtra` call `notifyAudioPlayed()` when they begin playback.
 
 - `useTrack` (background music) creates a Web Audio `AudioContext` + `GainNode` chained to the `<audio id="track">` element and writes `volume` into the gain node. Track shuffles to a different track on `onEnded`.
-- `useSample` (commentary clips) plays `<audio id="sample">` and ducks the music to `DUCK_VOLUME` (0.33) while playing, restoring `FULL_VOLUME` (1) on `onended`/error.
+- `useSample` (commentary clips) plays `<audio id="sample">` and ducks the music to `DUCK_VOLUME` (0.33) while playing, restoring `FULL_VOLUME` (1) on `onended`/error. It calls `audio.removeAttribute("src")` before `audio.load()` to clear any `src` set by `useExtra` — per HTML spec, a `src` attribute takes precedence over `<source>` children.
+- `useExtra` (idle extras) waits 30 s of no audio activity then auto-plays a random clip from the `extras/` prefix using the same `<audio id="sample">` element and the same ducking behaviour. The idle timer is reset via `lastAudioPlayedAt` whenever either hook plays audio. The `idleTimer` callback performs no React state updates (only `audio.src` / `audio.load()`); all state updates happen inside a nested `playTimer` — this avoids a re-render that would run effect cleanup and cancel `playTimer` before it fires.
+
+Shared audio constants (`DUCK_VOLUME`, `FULL_VOLUME`, `SAMPLE_START_DELAY_MS`) live in `src/hooks/audioConstants.ts`.
 
 The two `<audio>` elements are referenced by DOM id (looked up via `getAudioElement` in `src/helpers/audioElement.ts`, which uses `instanceof HTMLAudioElement` rather than an `as` cast). Keep the ids `track` and `sample` and the `crossOrigin="anonymous"` attribute (required for the Web Audio graph to read S3-hosted media).
 
