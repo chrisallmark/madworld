@@ -1,8 +1,9 @@
 "use client";
 
-import { useBackground, useRain } from "@/hooks";
 import { useState } from "react";
 import styled from "styled-components";
+
+import { useBackground, useRain } from "@/hooks";
 
 const BackgroundDiv = styled.div<{ $background: string }>`
   background-image: url("/images/madworld-${(props) => props.$background}.jpg");

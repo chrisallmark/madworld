@@ -31,7 +31,7 @@ When adding new audio asset categories, both `audio.ts` and `terraform/main.tf` 
 
 ### Audio coordination via context
 
-`src/contexts/Audio.tsx` exposes `AudioVolumeContext` / `AudioVolumeProvider`. The context is deliberately *not* called `AudioContext` because that would shadow the browser's `window.AudioContext` global used by `useTrack`. In addition to `volume`/`setVolume`, the context carries `lastAudioPlayedAt` (timestamp, initialized to `Date.now()`) and `notifyAudioPlayed` (resets the timestamp). Both `useSample` and `useExtra` call `notifyAudioPlayed()` when they begin playback.
+`src/contexts/Audio.tsx` exposes `AudioVolumeContext` / `AudioVolumeProvider`. The context is deliberately _not_ called `AudioContext` because that would shadow the browser's `window.AudioContext` global used by `useTrack`. In addition to `volume`/`setVolume`, the context carries `lastAudioPlayedAt` (timestamp, initialized to `Date.now()`) and `notifyAudioPlayed` (resets the timestamp). Both `useSample` and `useExtra` call `notifyAudioPlayed()` when they begin playback.
 
 - `useTrack` (background music) creates a Web Audio `AudioContext` + `GainNode` chained to the `<audio id="track">` element and writes `volume` into the gain node. Track shuffles to a different track on `onEnded`.
 - `useSample` (commentary clips) plays `<audio id="sample">` and ducks the music to `DUCK_VOLUME` (0.33) while playing, restoring `FULL_VOLUME` (1) on `onended`/error. It calls `audio.removeAttribute("src")` before `audio.load()` to clear any `src` set by `useExtra` — per HTML spec, a `src` attribute takes precedence over `<source>` children.

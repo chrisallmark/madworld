@@ -1,9 +1,10 @@
 "use client";
 
-import { AudioDropdown } from "@/components/AudioDropdown";
-import { useTrack } from "@/hooks";
-import { displayNameFromUrl } from "@/helpers/format";
 import { Dropdown } from "semantic-ui-react";
+
+import { AudioDropdown } from "@/components/AudioDropdown";
+import { displayNameFromUrl } from "@/helpers/format";
+import { useTrack } from "@/hooks";
 
 export function Track({ tracks }: { tracks: Array<string> }) {
   const { track, setTrack } = useTrack(tracks);

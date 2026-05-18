@@ -1,6 +1,6 @@
-import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import { readdirSync } from "fs";
 import path from "path";
+import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 
 function isDevelopment() {
   return process.env.NODE_ENV === "development";

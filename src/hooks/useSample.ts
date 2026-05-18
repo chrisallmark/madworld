@@ -1,9 +1,15 @@
 "use client";
 
+import { useContext, useEffect, useState } from "react";
+
 import { AudioVolumeContext } from "@/contexts";
 import { getAudioElement } from "@/helpers/audioElement";
-import { useContext, useEffect, useState } from "react";
-import { DUCK_VOLUME, FULL_VOLUME, SAMPLE_START_DELAY_MS } from "./audioConstants";
+
+import {
+  DUCK_VOLUME,
+  FULL_VOLUME,
+  SAMPLE_START_DELAY_MS,
+} from "./audioConstants";
 
 export function useSample(): {
   sample: string;

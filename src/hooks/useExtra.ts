@@ -1,9 +1,15 @@
 "use client";
 
+import { useContext, useEffect } from "react";
+
 import { AudioVolumeContext } from "@/contexts";
 import { getAudioElement } from "@/helpers/audioElement";
-import { useContext, useEffect } from "react";
-import { DUCK_VOLUME, FULL_VOLUME, SAMPLE_START_DELAY_MS } from "./audioConstants";
+
+import {
+  DUCK_VOLUME,
+  FULL_VOLUME,
+  SAMPLE_START_DELAY_MS,
+} from "./audioConstants";
 
 const IDLE_TIMEOUT_MS = 30_000;
 

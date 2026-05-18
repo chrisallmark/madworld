@@ -1,9 +1,10 @@
 "use client";
 
-import { AudioDropdown } from "@/components/AudioDropdown";
-import { useSample } from "@/hooks";
-import { displayNameFromUrl } from "@/helpers/format";
 import { Button, Dropdown, Grid, Icon } from "semantic-ui-react";
+
+import { AudioDropdown } from "@/components/AudioDropdown";
+import { displayNameFromUrl } from "@/helpers/format";
+import { useSample } from "@/hooks";
 
 export function Sample({ samples }: { samples: Array<string> }) {
   const { sample, setSample, repeat } = useSample();

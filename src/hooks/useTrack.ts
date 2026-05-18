@@ -1,8 +1,9 @@
 "use client";
 
+import { useContext, useEffect, useRef, useState } from "react";
+
 import { AudioVolumeContext } from "@/contexts";
 import { getAudioElement } from "@/helpers/audioElement";
-import { useContext, useEffect, useRef, useState } from "react";
 
 function getRandomTrack(tracks: Array<string>) {
   if (tracks.length === 0) {

@@ -1,7 +1,8 @@
 "use client";
 
-import { Background, Player, Splash } from "@/components";
 import { useState } from "react";
+
+import { Background, Player, Splash } from "@/components";
 
 interface MadWorldProps {
   extras: Array<string>;

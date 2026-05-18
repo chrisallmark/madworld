@@ -1,10 +1,11 @@
 "use client";
 
+import { Container, Grid } from "semantic-ui-react";
+import styled from "styled-components";
+
 import { Sample, Track } from "@/components";
 import { AudioVolumeProvider } from "@/contexts";
 import { useExtra } from "@/hooks";
-import { Container, Grid } from "semantic-ui-react";
-import styled from "styled-components";
 
 const MadWorldLogo = styled.img`
   max-width: 1366px;

@@ -1,5 +1,6 @@
-import { Background } from "@/components";
 import { Dimmer, Loader } from "semantic-ui-react";
+
+import { Background } from "@/components";
 
 export default function Loading() {
   return (
