@@ -1,4 +1,4 @@
-![MadWorld](/public/images/madworld-logo.png)
+![MadWorld](./public/images/madworld-logo.png)
 
 <p align="center">NSFW Sega MadWorld Audio Player</p>
 
@@ -55,6 +55,20 @@ AWS_BUCKET = "..."
 AWS_REGION = "..."
 AWS_SECRET_ACCESS_KEY = "..."
 ```
+
+## Docker
+
+```
+docker build -t madworld .
+docker run -p 3000:3000 \
+  -e AWS_ACCESS_KEY_ID="..." \
+  -e AWS_BUCKET="..." \
+  -e AWS_REGION="..." \
+  -e AWS_SECRET_ACCESS_KEY="..." \
+  madworld
+```
+
+The image uses `node:22-slim` and Next.js standalone output. Audio/video assets are served from S3 at runtime — they are not baked into the image.
 
 ## Commits & releases
 

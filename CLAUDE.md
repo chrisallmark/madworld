@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm dev` — Next.js dev server (uses local files in `public/`)
 - `pnpm build` / `pnpm start` — production build (reads audio from S3)
 - `pnpm lint` — ESLint 9 flat config (`eslint.config.mjs`; `eslint-config-next` core-web-vitals + TS)
+- `pnpm format` — Prettier (writes in place); `pnpm format:check` to check without writing
 
 There are no tests in this project.
 
@@ -22,6 +23,8 @@ Next.js 16 App Router app (TypeScript, React 18) — a single-page audio player.
 - **Development**: `getExtras` / `getSamples` / `getTracks` read filenames from `public/extras`, `public/samples`, and `public/tracks` via `fs.readdirSync`. The `package.json` `"browser": { "fs": false }` field prevents `fs` from leaking into client bundles — these helpers must stay server-only (called from `src/app/page.tsx`, a server component).
 - **Production**: same helpers list objects from an S3 bucket using `@aws-sdk/client-s3` (lazy-initialised via `getS3Client()`, which calls `requireEnv()` for `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_BUCKET`). `listS3` paginates via `ListObjectsV2Command` continuation tokens. The Terraform in `terraform/` provisions the bucket and uploads everything under `public/{samples,tracks,extras,videos}` to matching S3 prefixes.
 - `getVideoUrl()` follows the same dev/prod split and is consumed by `page.tsx` (server) → threaded as a `videoUrl` prop through `MadWorld` → `Background`. Don't reintroduce the prod URL inline in any client component.
+
+`page.tsx` exports `dynamic = "force-dynamic"` to prevent Next.js from statically pre-rendering it at build time — static generation would invoke `requireEnv()` without AWS credentials and fail. The page is always server-rendered on demand.
 
 When adding new audio asset categories, both `audio.ts` and `terraform/main.tf` need matching changes.
 
@@ -61,4 +64,6 @@ The two `<audio>` elements are referenced by DOM id (looked up via `getAudioElem
 
 ## Deployment
 
-Targets Vercel (`@vercel/speed-insights` is wired into the root layout, `metadataBase` points at `mad-world.vercel.app`). `.vercelignore` excludes the bulk audio/video assets from the deploy bundle since production serves them from S3.
+**Vercel**: `@vercel/speed-insights` is wired into the root layout, `metadataBase` points at `mad-world.vercel.app`. `.vercelignore` excludes the bulk audio/video assets from the deploy bundle since production serves them from S3.
+
+**Docker**: a `Dockerfile` (three-stage: deps → builder → runner, `node:22-slim`) and `.dockerignore` are included. `next.config.mjs` sets `output: 'standalone'` for a minimal runner image. The `.dockerignore` excludes `public/samples`, `public/tracks`, `public/extras`, and `public/videos` (~145 MB of audio/video) from the build context since production fetches them from S3. Inject the four AWS env vars at container runtime.
