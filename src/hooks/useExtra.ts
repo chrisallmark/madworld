@@ -11,7 +11,15 @@ import {
   SAMPLE_START_DELAY_MS,
 } from "./audioConstants";
 
-const IDLE_TIMEOUT_MS = 30_000;
+const MIN_IDLE_MINUTES = 1;
+const MAX_IDLE_MINUTES = 5;
+
+function randomIdleTimeoutMs() {
+  const minutes =
+    Math.floor(Math.random() * (MAX_IDLE_MINUTES - MIN_IDLE_MINUTES + 1)) +
+    MIN_IDLE_MINUTES;
+  return minutes * 60_000;
+}
 
 export function useExtra(extras: string[]) {
   const { setVolume, lastAudioPlayedAt, notifyAudioPlayed } =
@@ -20,8 +28,9 @@ export function useExtra(extras: string[]) {
   useEffect(() => {
     if (!extras.length) return;
 
+    const idleTimeoutMs = randomIdleTimeoutMs();
     const elapsed = Date.now() - lastAudioPlayedAt;
-    const delay = Math.max(0, IDLE_TIMEOUT_MS - elapsed);
+    const delay = Math.max(0, idleTimeoutMs - elapsed);
     let playTimer: number | undefined;
 
     const idleTimer = window.setTimeout(() => {
