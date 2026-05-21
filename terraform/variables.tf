@@ -1,5 +1,5 @@
 variable "allowed_origins" {
-  default = ["https://mad-world.vercel.app"]
+  default = ["http://madworld.local", "https://mad-world.vercel.app"]
   type    = list(any)
 }
 
