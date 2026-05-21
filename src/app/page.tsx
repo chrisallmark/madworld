@@ -6,6 +6,8 @@ import {
   getVideoUrl,
 } from "@/services/audio";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const [extras, samples, tracks] = await Promise.all([
     getExtras(),
