@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/chrisallmark/madworld/compare/v1.0.0...v1.0.1) (2026-05-21)
+
+### Bug Fixes
+
+* fix extras idle timeout ([64efa13](https://github.com/chrisallmark/madworld/commit/64efa13f8f2635e362f5d319e94282859d27e368))
+
 ## 1.0.0 (2026-05-18)
 
 ### Features
