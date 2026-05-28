@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/chrisallmark/madworld/compare/v1.0.1...v1.0.2) (2026-05-28)
+
+### Bug Fixes
+
+* update commit-msg ([fdb6ef2](https://github.com/chrisallmark/madworld/commit/fdb6ef296aca132adc663abf3d41b21604efa26a))
+
 ## [1.0.1](https://github.com/chrisallmark/madworld/compare/v1.0.0...v1.0.1) (2026-05-21)
 
 ### Bug Fixes
