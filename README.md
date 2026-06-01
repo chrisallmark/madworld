@@ -22,6 +22,14 @@ pnpm install
 pnpm dev
 ```
 
+## Testing
+
+```
+pnpm test
+```
+
+Run in watch mode with `pnpm test:watch`.
+
 ## Production Build
 
 ```

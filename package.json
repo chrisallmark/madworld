@@ -13,7 +13,9 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "prepare": "husky",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch"
   },
   "config": {
     "commitizen": {
@@ -35,6 +37,10 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -44,6 +50,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "husky": "^9.1.7",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "prettier": "^3.8.3",
     "semantic-release": "^25.0.3",
     "typescript": "^6"
