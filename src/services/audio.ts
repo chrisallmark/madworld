@@ -36,8 +36,8 @@ function s3PublicUrl(key: string): string {
 }
 
 async function listLocal(prefix: string): Promise<Array<string>> {
-  return readdirSync(path.join(process.cwd(), "public", prefix)).map(
-    (name) => `${prefix}/${name}`,
+  return readdirSync(path.join(process.cwd(), "public", "assets", prefix)).map(
+    (name) => `/assets/${prefix}/${name}`,
   );
 }
 
@@ -78,6 +78,6 @@ export const getTracks = () => listMedia("tracks");
 
 export function getVideoUrl(): string {
   return isDevelopment()
-    ? "/videos/madworld.mp4"
+    ? "/assets/videos/madworld.mp4"
     : s3PublicUrl("videos/madworld.mp4");
 }

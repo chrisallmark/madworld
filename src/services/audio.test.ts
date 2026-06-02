@@ -70,29 +70,29 @@ describe("audio service", () => {
     const { readdirSync, service } = await loadAudioService();
 
     await expect(service.getExtras()).resolves.toEqual([
-      "extras/one.mp3",
-      "extras/two.mp3",
+      "/assets/extras/one.mp3",
+      "/assets/extras/two.mp3",
     ]);
     await expect(service.getSamples()).resolves.toEqual([
-      "samples/one.mp3",
-      "samples/two.mp3",
+      "/assets/samples/one.mp3",
+      "/assets/samples/two.mp3",
     ]);
     await expect(service.getTracks()).resolves.toEqual([
-      "tracks/one.mp3",
-      "tracks/two.mp3",
+      "/assets/tracks/one.mp3",
+      "/assets/tracks/two.mp3",
     ]);
 
     expect(readdirSync).toHaveBeenNthCalledWith(
       1,
-      path.join(process.cwd(), "public", "extras"),
+      path.join(process.cwd(), "public", "assets", "extras"),
     );
     expect(readdirSync).toHaveBeenNthCalledWith(
       2,
-      path.join(process.cwd(), "public", "samples"),
+      path.join(process.cwd(), "public", "assets", "samples"),
     );
     expect(readdirSync).toHaveBeenNthCalledWith(
       3,
-      path.join(process.cwd(), "public", "tracks"),
+      path.join(process.cwd(), "public", "assets", "tracks"),
     );
   });
 
@@ -100,7 +100,7 @@ describe("audio service", () => {
     replaceEnv({ NODE_ENV: "development" });
     const { service } = await loadAudioService();
 
-    expect(service.getVideoUrl()).toBe("/videos/madworld.mp4");
+    expect(service.getVideoUrl()).toBe("/assets/videos/madworld.mp4");
   });
 
   it("lists paginated S3 media and filters empty folder entries", async () => {

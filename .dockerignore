@@ -1,7 +1,4 @@
 .next
 node_modules
 .env*
-public/extras
-public/samples
-public/tracks
-public/videos
+public/assets

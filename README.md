@@ -8,12 +8,13 @@
 
 This not-safe-for-work application is a tribute to one of my favourite games - [Madworld](https://www.platinumgames.com/games/madworld) by [Platinum Games](https://www.platinumgames.com/) where you get to experience a unique blend of brutality, humor and madness in a graphic novel-style world that’s black and white and blood-red all over.
 
-In a blatant act of copyright infringement, this application plays randomised tracks from the MadWorld OST and lets you trigger samples of the hilarious in-game commentary from Howard "Buckshot" Holmes (Greg Proops) & Kreese Kreely (John DiMaggio) while displaying a selection of gory screen shots in the background - and if you leave it idle for 30 seconds, it'll remind you it's still there...
+In a blatant act of copyright infringement, this application plays randomised tracks from the MadWorld OST and lets you trigger samples of the hilarious in-game commentary from Howard "Buckshot" Holmes (Greg Proops) & Kreese Kreely (John DiMaggio) while displaying a selection of gory screen shots in the background - and if you leave it idle for 1–5 minutes, it'll remind you it's still there...
 
 ## Install Package Dependencies
 
 ```
 pnpm install
+git submodule update --init --recursive
 ```
 
 ## Development Build
@@ -32,37 +33,23 @@ Run in watch mode with `pnpm test:watch`.
 
 ## Production Build
 
+Requires four AWS environment variables to serve audio/video from S3:
+
+```
+AWS_ACCESS_KEY_ID=...
+AWS_BUCKET=...
+AWS_REGION=...
+AWS_SECRET_ACCESS_KEY=...
+```
+
 ```
 pnpm build
 pnpm start
 ```
 
-### AWS Configuration
+### Assets
 
-In development mode the application uses local audio resources, however in production mode audio resources are retrieved from the AWS Simple Storage Service (S3).
-
-To deploy the audio resources to AWS with [terraform](https://developer.hashicorp.com/terraform) create a `terraform.tfvars` file in the `terraform` folder providing a list of allowed origins for CORS and a unique bucket name:
-
-```
-allowed_origins = [ "*" ]
-bucket = "..."
-```
-
-Now from with the terraform directory provision your infrastructure with:
-
-```
-terraform init
-terraform apply
-```
-
-Finally, configure your application by declaring the following variables in your deployment environment:
-
-```
-AWS_ACCESS_KEY_ID = "..."
-AWS_BUCKET = "..."
-AWS_REGION = "..."
-AWS_SECRET_ACCESS_KEY = "..."
-```
+Local audio and video assets are provided by the `madworld-assets` submodule at `public/assets`. The AWS S3 and Terraform setup for those assets now lives in the [madworld-assets](https://github.com/chrisallmark/madworld-assets) repository.
 
 ## Docker
 
