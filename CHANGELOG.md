@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/chrisallmark/madworld/compare/v1.0.2...v1.0.3) (2026-06-02)
+
+### Bug Fixes
+
+* add woodpecker ([e19f51d](https://github.com/chrisallmark/madworld/commit/e19f51dc9b158df7336f5750ce28b106ca4ce823))
+
 ## [1.0.2](https://github.com/chrisallmark/madworld/compare/v1.0.1...v1.0.2) (2026-05-28)
 
 ### Bug Fixes
